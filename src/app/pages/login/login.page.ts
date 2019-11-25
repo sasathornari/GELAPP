@@ -49,18 +49,18 @@ export class LoginPage implements OnInit {
 
 loginAction() {
     if (this.validateInputs()) {     
-      this.userService.getUsersLogin(this.postData.username,this.postData.password)
-      .subscribe(data => {
-        console.log(data);
-        if(data[0]){
+     // this.userService.getUsersLogin(this.postData.username,this.postData.password)
+     // .subscribe(data => {
+     //   console.log(data);
+     //   if(data[0]){
           
-            this.toastService.presentToast('ยินดีต้อนรับ คุณ'+ data[0].EMP_NAME+' เข้าสู่ระบบ')
+      //      this.toastService.presentToast('ยินดีต้อนรับ คุณ'+ data[0].EMP_NAME+' เข้าสู่ระบบ')
             this.router.navigate(['home/checktime',{userLogin: this.postData.username}])
           
-        }
-      },
-        err => console.log(err)
-      )
+      //  }
+     // },
+     //   err => console.log(err)
+     // )
       
       
     }else{

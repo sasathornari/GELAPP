@@ -22,10 +22,10 @@ const routes: Routes = [
           )
       },
       {
-        path: 'feed',
+        path: 'notifications',
         loadChildren: () =>
-          import("../pages/feed/feed.module").then(
-            m => m.FeedPageModule
+          import("../pages/notifications/notifications.module").then(
+            m => m.NotificationsPageModule
           )
       },
       {

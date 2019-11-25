@@ -28,11 +28,8 @@ export class ChecktimePage implements OnInit {
 
   timeIn: any;
   timeOut: any;
-  checkInForm: FormGroup;
 
   
-  USER_AUTH  = this.route.snapshot.paramMap.get("userLogin");
-
   constructor(
     private userService: UserService,
     private projectService: ProjectService,
@@ -52,11 +49,8 @@ export class ChecktimePage implements OnInit {
     }
 
   ngOnInit() {
-    this.checkInForm = this.fb.group({
-      empId: [''],
-      proId: ['']
-    })
-
+    
+    console.log('load');
     this.viewProjectAssign();
     this.viewProfile(this.userLogin);
     this.ionViewDidLoad();
@@ -65,7 +59,7 @@ export class ChecktimePage implements OnInit {
 
 
   onClickSubmit(){
-    console.log(this.checkInForm.value);
+    
     if(this.timeIn == ''){
       this.timeIn = this.now.toTimeString().substring(0,8);
       
