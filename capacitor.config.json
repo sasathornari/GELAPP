@@ -1,0 +1,8 @@
+{
+  "appId": "io.ionic.starter",
+  "appName": "GELAPP",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "src",
+  "cordova": {}
+}

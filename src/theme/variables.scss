@@ -1,6 +1,7 @@
 // Ionic Variables and Theming. For more info, please see:
 // http://ionicframework.com/docs/theming/
 
+@import '../theme/fonts.scss';
 /** Ionic CSS Variables **/
 :root {
   /** primary **/
@@ -74,4 +75,40 @@
   --ion-color-light-contrast-rgb: 0, 0, 0;
   --ion-color-light-shade: #d7d8da;
   --ion-color-light-tint: #f5f6f9;
+
+
+    /** GEL **/
+    --ion-color-gel: #224f26;
+    --ion-color-gel-rgb: 34, 79, 38;
+    --ion-color-gel-contrast: #ffffff;
+    --ion-color-gel-contrast-rgb: 255, 255, 255;
+    --ion-color-gel-shade: #187420;
+    --ion-color-gel-tint: #2f8b37;
+
+    ion-tab-button.tab-selected {
+      ion-icon, ion-label {
+        color: var(--ion-color-gel) !important;
+        --ion-color-base: var(--ion-color-gel) !important;
+      }
+    }
+
+    --ion-font-family: Bai Jamjuree, sans-serif;
+}
+
+
+.ion-color-gel{
+  --ion-color-base: var(--ion-color-gel);
+  --ion-color-base-rgb: var(--ion-color-gel-rgb);
+  --ion-color-contrast: var(--ion-color-gel-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-gel-contrast-rgb);
+  --ion-color-shade: var(--ion-color-gel-shade);
+  --ion-color-tint: var(--ion-color-gel-tint);
+}
+
+.center {
+  text-align: center;
+}
+
+.label-stacked.sc-ion-label-md-h {
+  padding-bottom: 20px;
 }

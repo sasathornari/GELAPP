@@ -1,5 +1,12 @@
 {
   "name": "GELAPP",
-  "integrations": {},
-  "type": "angular"
+  "integrations": {
+    "cordova": {}
+  },
+  "typescript": true,
+  "type": "angular",
+  "proxies": [{
+      "path": "/api/*",
+      "proxyUrl": "http://147.50.42.162:3000/api"
+  }]
 }

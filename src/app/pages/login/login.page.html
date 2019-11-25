@@ -1,0 +1,19 @@
+<ion-content>
+<div class="center">
+  <img src="assets/images/GEL.png" style="padding-top: 10px;">
+  <h1>ลงชื่อเข้าใช้งานระบบ</h1>
+</div>
+<form>
+  <ion-list>
+    <ion-item>
+        <ion-label position="stacked">Username</ion-label>
+        <ion-input autocomplete="on" name="username" type="text" [(ngModel)]="postData.username"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label position="stacked">Password</ion-label>
+        <ion-input autocomplete="off" name="password" type="password" [(ngModel)]="postData.password"></ion-input>
+    </ion-item>    
+    <ion-button expand="block" color="success" (click)="loginAction()">ยืนยันเข้าสู่ระบบ</ion-button>
+  </ion-list>
+</form>
+</ion-content>

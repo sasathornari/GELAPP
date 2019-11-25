@@ -1,0 +1,53 @@
+<form [formGroup]="checkInForm" (ngSubmit)="onClickSubmit()">
+<ion-content class="full">  
+    <ion-list>
+      <ion-item color="gel">
+        <ion-avatar slot="start">
+          <img src="assets/images/person.png">
+        </ion-avatar>
+        <ion-input *ngFor="let user of userProfile" formControlName="empId" ><b>{{user.EMP_INTL}} {{user.EMP_NAME}} {{user.EMP_SURNME}}</b>
+        </ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>เลือกโครงการ</ion-label>
+        <ion-select placeholder="โครงการ" formControlName="proId">
+          <ion-select-option *ngFor="let item of projects" [value]="item.proId">{{item.NAME}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-list>
+    <ion-list>
+      <ion-list-header>ตำแหน่งปัจจุบัน: {{ lat }}, {{ lng }}</ion-list-header>
+    </ion-list>
+
+    <ion-card class="full">
+      <ion-card-content style="text-align: center">
+        <ion-card-title color="primary">
+          <h1 style="font-size: 42px;font-weight: bold;">{{now | date: 'HH:mm:ss' }}</h1>
+        </ion-card-title>
+        <ion-card-title>
+          <h2>{{timeToday | date: 'dd/MM/yyyy' }}</h2>
+        </ion-card-title>
+      </ion-card-content>
+    </ion-card>
+    <section class="full-width">
+      <ion-button expand="full" color="success" type="submit">บันทึกเวลาทำงาน</ion-button>
+    </section>
+
+
+
+  <!-- Display Check in timeattendance-->
+  <ion-card>
+  <ion-grid>
+      <ion-row>
+        <ion-col>
+          <div>เข้า: {{ timeIn }}</div>
+        </ion-col>
+        <ion-col>
+          <div>ออก: {{ timeOut }}</div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card>
+
+</ion-content>
+</form>
