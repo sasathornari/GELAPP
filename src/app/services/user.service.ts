@@ -19,8 +19,8 @@ export class UserService {
   // Http Options
   httpOptions = {
     headers: new HttpHeaders({
-      'Content-Type': 'application/x-www-form-urlencoded, multipart/form-data, text/plain',
-      'Access-Control-Allow-Origin': 'http://localhost:8100',
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Methods': 'POST, GET, OPTIONS, PUT , DELETE',
       'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
     })
