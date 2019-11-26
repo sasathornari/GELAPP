@@ -3,10 +3,11 @@
     <name>GEL APP</name>
     <description>An awesome Ionic/Cordova app.</description>
     <author email="hi@ionicframework.com" href="http://ionicframework.com/">Ionic Framework Team</author>
-    <content src="index.html" />
+    <content original-src="index.html" src="http://localhost:8100" />
     <access origin="*" />
-    <allow-intent href="http://*/*" />
-    <allow-intent href="https://*/*" />
+    <allow-navigation href="http://147.50.42.162:3000/api/" />
+    <allow-navigation href="http://*/*" />
+    <allow-navigation href="https://*/*" />
     <allow-intent href="tel:*" />
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
