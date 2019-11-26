@@ -61,10 +61,9 @@ export class ChecktimePage implements OnInit {
   onClickSubmit(){
     
     if(this.timeIn == ''){
-      this.timeIn = this.now.toTimeString().substring(0,8);
-      
+      this.timeIn = this.now.toTimeString().substring(0,8);   
     }
-   
+    this.toastService.presentToast('เวลาทำงานคุณคือ'+ this.timeIn);
   
     /*this.alertCrtl.create({
       header: 'บันทึกเวลาทำงาน',

@@ -38,6 +38,7 @@
     "@ionic/cloud-angular": "^0.12.0",
     "@ionic/storage": "^2.2.0",
     "common-http": "^2.1.8",
+    "cordova-android": "^8.1.0",
     "cordova-plugin-advanced-http": "^2.2.0",
     "core-js": "^3.3.6",
     "cors": "^2.8.5",
@@ -80,6 +81,7 @@
     "karma-coverage-istanbul-reporter": "~2.1.0",
     "karma-jasmine": "~2.0.1",
     "karma-jasmine-html-reporter": "^1.4.2",
+    "nodemon": "^2.0.1",
     "protractor": "~5.4.2",
     "ts-node": "~8.4.1",
     "tslint": "~5.20.0",
@@ -99,7 +101,8 @@
       "cordova-plugin-network-information": {}
     },
     "platforms": [
-      "browser"
+      "browser",
+      "android"
     ]
   },
   "main": "karma.conf.js",

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-import { throwError } from 'rxjs';
+import { HttpClient, HttpHeaders, HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import { throwError, Observable } from 'rxjs';
+import { Project } from 'app/models/Project';
 
 @Injectable({
   providedIn: 'root'
@@ -10,12 +11,12 @@ export class ProjectService {
 
   constructor(private http: HttpClient) { }
   // Http Options
-  httpOptions = {
+  /*httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Methods': 'POST, GET, OPTIONS, PUT , DELETE',
-      'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
+      'Access-Control-Allow-Headers': 'Content-Type,X-custom-Header'
     })
   }
   
@@ -36,17 +37,16 @@ handleError(error: HttpErrorResponse) {
   // return an observable with a user-facing error message
   return throwError(
     'Something bad happened; please try again later.');
-};
+};*/
 
   getAllProjectAX() {
     //console.log(`/projectAX`);
-    return this.http.get(`/projectAX`, {observe: 'response'});
+    return this.http.get(`projectAX`);
   }
 
   getListProject() {
-    console.log('------------http options---------------');
-    console.log(this.httpOptions);
-    return this.http.get(`/project`, this.httpOptions);
+    console.log('------------http options---------------');   
+    return this.http.get(`project`);
   }
 
 

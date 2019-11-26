@@ -3,8 +3,6 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from "@angular/common/http
 import { throwError, Observable } from 'rxjs';
 import { User } from 'app/models/User';
 import { retry, catchError } from 'rxjs/operators';
-
-
 @Injectable({
   providedIn: "root"
 })
@@ -16,15 +14,12 @@ export class UserService {
     private http: HttpClient
   ) { }
 
-  // Http Options
   httpOptions = {
     headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'POST, GET, OPTIONS, PUT , DELETE',
-      'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
+      'Accept': 'application/json, text/plain',
+      'Content-Type': 'application/json'
     })
-  }
+  };
 
   // Handle API errors
   handleError(error: HttpErrorResponse) {
@@ -45,27 +40,27 @@ export class UserService {
       'Something bad happened; please try again later.');
   };
 
+
   // Get single student data by ID
   getLogin(postData: any) {
     return this.http
-      .get<User>(`userlogin/` + postData, this.httpOptions)
+      .get<User>(`userlogin/` + postData)
       .pipe(
         retry(2),
         catchError(this.handleError)
       )
   }
 
-  getUsersLogin(id: any, pass: any): Observable<User[]> {
-    console.log(this.httpOptions);
-    return this.http.get<User[]>(`/user/${id},${pass}`,  this.httpOptions);
+  getUsersLogin(id,pass): Observable<User[]> {
+    return this.http.get<User[]>(`user/${id},${pass}`,this.httpOptions);
   }
 
   getUsers(id: any, pass: any) {
-    return this.http.get(`/user/${id},${pass}`, this.httpOptions);
+    return this.http.get(`user/${id},${pass}`);
   }
 
   getProfile(id: string) {
-    return this.http.get(`/user/${id}`);
+    return this.http.get(`user/${id}`);
   }
 
   /*async getListUser(){
