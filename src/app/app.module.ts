@@ -14,7 +14,7 @@ import { BaseUrlInterceptor } from "./interceptors/base-url.interceptor";
 import { Geolocation } from "@ionic-native/geolocation/ngx";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { CommonModule } from '@angular/common';
-import { from } from 'rxjs';
+
 
 @NgModule({
   declarations: [AppComponent],

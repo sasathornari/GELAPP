@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from "@angular/common/http
 import { throwError, Observable } from 'rxjs';
 import { User } from 'app/models/User';
 import { retry, catchError } from 'rxjs/operators';
+
 @Injectable({
   providedIn: "root"
 })
@@ -14,12 +15,16 @@ export class UserService {
     private http: HttpClient
   ) { }
 
+ 
   httpOptions = {
     headers: new HttpHeaders({
-      'Accept': 'application/json, text/plain',
-      'Content-Type': 'application/json'
+      'Content-Type':  'application/json',
+      'Access-Control-Allow-Credentials' : 'true',
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET, POST, PATCH, DELETE, PUT, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With',
     })
-  };
+  }
 
   // Handle API errors
   handleError(error: HttpErrorResponse) {
@@ -52,6 +57,15 @@ export class UserService {
   }
 
   getUsersLogin(id,pass): Observable<User[]> {
+    this.http.get<User[]>(`user/${id},${pass}`, this.httpOptions)
+    .pipe(
+      retry(2),
+      catchError(this.handleError)
+      
+    )
+    console.log('-----------start httpOptions--------------')
+    console.log(this.httpOptions)
+    console.log('------------end http option---------------')
     return this.http.get<User[]>(`user/${id},${pass}`,this.httpOptions);
   }
 
