@@ -57,16 +57,7 @@ export class UserService {
   }
 
   getUsersLogin(id,pass): Observable<User[]> {
-    this.http.get<User[]>(`user/${id},${pass}`, this.httpOptions)
-    .pipe(
-      retry(2),
-      catchError(this.handleError)
-      
-    )
-    console.log('-----------start httpOptions--------------')
-    console.log(this.httpOptions)
-    console.log('------------end http option---------------')
-    return this.http.get<User[]>(`user/${id},${pass}`,this.httpOptions);
+    return this.http.get<User[]>(`user/${id},${pass}`, this.httpOptions);
   }
 
   getUsers(id: any, pass: any) {
