@@ -26,8 +26,13 @@ export class ChecktimePage implements OnInit {
   date: Date = new Date(); 
   currentDate = this.now.toISOString().substring(0,10) + ' ' + this.now.toTimeString().substring(0,8);
 
-  timeIn: any;
-  timeOut: any;
+  timeIn = '';
+  timeOut = '';
+
+  postData = {
+    checkIn: '',
+    checkOut: ''
+  }
 
   
   constructor(
@@ -60,10 +65,21 @@ export class ChecktimePage implements OnInit {
 
   onClickSubmit(){
     
-    if(this.timeIn == ''){
-      this.timeIn = this.now.toTimeString().substring(0,8);   
+    if(this.timeIn === ''){
+      this.timeIn = this.now.toTimeString().substring(0,8); 
+      this.toastService.presentToast('เวลาเข้าทำงานคุณคือ '+ this.timeIn);
+    }else if(this.timeIn !== '' && this.timeOut !== '')
+    {
+      this.toastService.presentToast('เวลาทำงานของคุณได้บันทึกทั้งเข้าและออกแล้ว');
+    }else{
+      this.timeOut = this.now.toTimeString().substring(0,8);
+      this.toastService.presentToast('เวลาออกทำงานของคุณคือ '+ this.timeOut);
     }
-    this.toastService.presentToast('เวลาทำงานคุณคือ'+ this.timeIn);
+      
+    
+
+    
+    
   
     /*this.alertCrtl.create({
       header: 'บันทึกเวลาทำงาน',

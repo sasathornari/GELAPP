@@ -17,12 +17,12 @@ export class UserService {
 
  
   httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type':  'application/json',
-      'Access-Control-Allow-Credentials' : 'true',
+    headers: new HttpHeaders({      
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Methods': 'GET, POST, PATCH, DELETE, PUT, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With',
+      'Access-Control-Allow-Headers': 'Content-Type',
+      'Content-Type':  'application/json',
+      'Accept': 'application/json, text/plain'
     })
   }
 
@@ -45,7 +45,6 @@ export class UserService {
       'Something bad happened; please try again later.');
   };
 
-
   // Get single student data by ID
   getLogin(postData: any) {
     return this.http
@@ -57,7 +56,7 @@ export class UserService {
   }
 
   getUsersLogin(id,pass): Observable<User[]> {
-    return this.http.get<User[]>(`user/${id},${pass}`, this.httpOptions);
+    return this.http.get<User[]>(`user/${id},${pass}`);
   }
 
   getUsers(id: any, pass: any) {

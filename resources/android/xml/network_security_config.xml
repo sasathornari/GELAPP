@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <network-security-config>
-    <domain-config cleartextTrafficPermitted="true">
-        <domain includeSubdomains="true">localhost</domain>
-        <domain includeSubdomains="true">http://147.50.42.162:3000/api/</domain>
-    </domain-config>
+    <base-config cleartextTrafficPermitted="true">
+       <!-- <domain includeSubdomains="true">localhost</domain>
+        <domain includeSubdomains="true">http://147.50.42.162:3000/api/</domain>-->
+    </base-config>
 </network-security-config>
