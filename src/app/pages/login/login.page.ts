@@ -61,11 +61,13 @@ loginAction() {
      },
        err => console.log(err)
      )
-      
+     // this.router.navigate(['home/checktime']);
       
     }else{
       this.toastService.presentToast('กรุณาระบุชื่อและรหัสผ่านผู้ใช้งาน')
     }
+    
+    
   }
   
 
