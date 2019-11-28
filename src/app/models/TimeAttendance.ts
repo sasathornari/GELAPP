@@ -1,7 +1,10 @@
 export interface TimeAttendance {
     tmaId?: number;
+    ProjId?: string;
     empId: string;
-    proId: string;
+    empTitle?: string;
+    empName?: string;
+    empSurname?: string;    
     time_in: string;
     time_out: string;    
     userCreated?: string;

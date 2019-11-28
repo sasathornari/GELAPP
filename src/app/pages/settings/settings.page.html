@@ -1,6 +1,9 @@
 <ion-header>
   <ion-toolbar color="gel">
-    <ion-title>ตั้งค่า</ion-title>
+      <ion-avatar slot="start" class="profile">
+          <img src="assets/images/person.png">
+        </ion-avatar>
+    <ion-title *ngFor="let user of userProfile">{{user.EMP_INTL}} {{user.EMP_NAME}} {{user.EMP_SURNME}}</ion-title>
   </ion-toolbar>
 </ion-header>
 

@@ -51,15 +51,21 @@ loginAction() {
     if (this.validateInputs()) {     
      this.userService.getUsersLogin(this.postData.username,this.postData.password)
      .subscribe(data => {
-       console.log(data);
-       if(data[0]){
+       console.log(data.length);
+       const result = data.length;
+       if(result === 1){
           
             this.toastService.presentToast('ยินดีต้อนรับ คุณ'+ data[0].EMP_NAME+' เข้าสู่ระบบ')
             this.router.navigate(['home/checktime',{userLogin: this.postData.username}])
           
+        }else{
+          this.toastService.presentToast('กรุณาระบุชื่อและรหัสผ่านผู้ใช้งาน');
         }
      },
-       err => console.log(err)
+       err => {
+        this.toastService.presentToast('กรุณาระบุชื่อและรหัสผ่านผู้ใช้งาน');
+         console.log(err)
+       }
      )
      // this.router.navigate(['home/checktime']);
       

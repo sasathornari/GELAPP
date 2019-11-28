@@ -6,15 +6,15 @@
 <form>
   <ion-list>
     <ion-item>
-        <ion-label position="stacked">ชื่อผู้ใช้งาน</ion-label>
+        <ion-label position="stacked" class="form-control">ชื่อผู้ใช้งาน</ion-label>
         <ion-input autocomplete="on" name="username" type="text" [(ngModel)]="postData.username"></ion-input>
     </ion-item>
     <ion-item>
-        <ion-label position="stacked">รหัสผู้ใช้งาน</ion-label>
+        <ion-label position="stacked" class="form-control">รหัสผู้ใช้งาน</ion-label>
         <ion-input autocomplete="off" name="password" type="password" [(ngModel)]="postData.password"></ion-input>
     </ion-item> 
     <div style="padding-top: 10px;">
-      <ion-button expand="block" color="success" (click)="loginAction()">ยืนยันเข้าสู่ระบบ</ion-button>
+      <ion-button expand="block" color="success" (click)="loginAction()" class="button-control">ยืนยันเข้าสู่ระบบ</ion-button>
     </div>   
     
   </ion-list>

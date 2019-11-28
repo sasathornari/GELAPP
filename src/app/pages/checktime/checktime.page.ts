@@ -6,6 +6,8 @@ import { ProjectService } from 'app/services/project.service';
 import { AlertController } from '@ionic/angular';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { ToastService } from 'app/services/toast.service';
+import { ChecktimeService } from 'app/services/checktime.service';
+import { TimeAttendance } from 'app/models/TimeAttendance';
 
 @Component({
   selector: 'app-checktime',
@@ -15,8 +17,17 @@ import { ToastService } from 'app/services/toast.service';
 export class ChecktimePage implements OnInit {
 
   projects: any = [];
-  userLogin = this.route.snapshot.paramMap.get("userLogin");
+  listTime: any = [];
+  timeById: any = [];
   userProfile: any = [];
+  timeAttendace: TimeAttendance;
+
+
+
+  userLogin = this.route.snapshot.paramMap.get("userLogin");
+ 
+
+  checkInForm: FormGroup;
 
   lat: any;
   lng: any;
@@ -31,7 +42,8 @@ export class ChecktimePage implements OnInit {
 
   postData = {
     checkIn: '',
-    checkOut: ''
+    checkOut: '',
+    ProjId: ''
   }
 
   
@@ -42,6 +54,7 @@ export class ChecktimePage implements OnInit {
     private geo: Geolocation,
     private alertCrtl: AlertController,
     private toastService: ToastService,
+    private checkTime: ChecktimeService,
     private fb: FormBuilder
     ) 
     { 
@@ -54,6 +67,13 @@ export class ChecktimePage implements OnInit {
     }
 
   ngOnInit() {
+
+    this.checkInForm = this.fb.group({
+      ProjId: [''],
+      empId: [''],
+      timeIn: [''],
+      timeOut: ['']
+    })
     
     console.log('load');
     this.viewProjectAssign();
@@ -64,41 +84,63 @@ export class ChecktimePage implements OnInit {
 
 
   onClickSubmit(){
-    
-    if(this.timeIn === ''){
-      this.timeIn = this.now.toTimeString().substring(0,8); 
-      this.toastService.presentToast('เวลาเข้าทำงานคุณคือ '+ this.timeIn);
-    }else if(this.timeIn !== '' && this.timeOut !== '')
-    {
-      this.toastService.presentToast('เวลาทำงานของคุณได้บันทึกทั้งเข้าและออกแล้ว');
-    }else{
-      this.timeOut = this.now.toTimeString().substring(0,8);
-      this.toastService.presentToast('เวลาออกทำงานของคุณคือ '+ this.timeOut);
-    }
-      
-    
+    console.log(this.postData.ProjId);
+    alert(JSON.stringify(this.checkInForm.value,null,4));
+    console.log(this.currentDate);
+    // if(this.timeIn === ''){
+    //   this.timeIn = this.now.toTimeString().substring(0,8); 
+    //   this.toastService.presentToast('เวลาเข้าทำงานคุณคือ '+ this.timeIn);
+    // }else if(this.timeIn !== '' && this.timeOut !== '')
+    // {
+    //   this.toastService.presentToast('เวลาทำงานของคุณได้บันทึกทั้งเข้าและออกแล้วi');
+    // }else{
+    //   this.timeOut = this.now.toTimeString().substring(0,8);
+    //   this.toastService.presentToast('เวลาออกทำงานของคุณคือ '+ this.timeOut);
+    // }
 
     
-    
-  
-    /*this.alertCrtl.create({
-      header: 'บันทึกเวลาทำงาน',
-      message: 'เวลา: '+ this.now.toLocaleString()+ '\nที่อยู่ปัจจุบัน: '+this.lat+','+this.lng,
-      buttons: ['บันทึก']
-    }).then(alert => {
-      alert.present();
-    });*/
+      this.checkTime.saveTMA(this.checkInForm.value)
+      .subscribe( data => {
+        this.timeAttendace = this.checkInForm.value;
+      },
+        err => console.log(err)
+      )
+
   }
 
-  viewProjectAssign(){
-    this.projectService.getListProject()
-    .subscribe( res => {
-      this.projects = res;
-      //console.log(this.projects);
-    },
-      err => console.log(err)
-    )
-  }
+  // addTimeAttendance(){
+
+  //   this.checkTime.getTMAByEmpId(this.userLogin)
+  //   .subscribe( data => {
+  //     this.timeById = data;
+  //     const result = this.timeById.length;
+  //     console.log(result);
+  //     if(result >= 1){
+
+  //     }else{
+  //       this.checkTime.saveTMA(this.checkInForm.value)
+  //       .subscribe( data => {
+  //         this.timeAttendace = this.checkInForm.value;
+  //       },
+  //         err => console.log(err)
+  //       )
+  //     }
+  //   },
+  //     err => console.log(err)
+  //   )
+
+    
+  // }
+
+  // viewProjectAssign(){
+  //   this.projectService.getListProject()
+  //   .subscribe( res => {
+  //     this.projects = res;
+  //     //console.log(this.projects);
+  //   },
+  //     err => console.log(err)
+  //   )
+  // }
 
   viewProfile(user: any){
     this.userService.getProfile(user)
@@ -116,5 +158,16 @@ export class ChecktimePage implements OnInit {
       console.log(this.lat,this.lng);
     }).catch( err => console.log(err));
   }
+
+  viewListTMA(){
+    this.checkTime.getListTMA()
+    .subscribe( data => {
+      this.listTime = data;
+    },
+      err => console.log(err)
+    )
+  }
+
+  
 
 }

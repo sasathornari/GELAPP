@@ -40,6 +40,7 @@
     "@ionic/angular": "^4.11.5",
     "@ionic/cloud-angular": "^0.12.0",
     "@ionic/storage": "^2.2.0",
+    "@swimlane/ngx-datatable": "^16.0.2",
     "common-http": "^2.1.8",
     "cordova-android": "^8.1.0",
     "cordova-plugin-advanced-http": "^2.2.0",

@@ -1,16 +1,20 @@
+<ion-header>
+    <ion-toolbar color="gel">
+        <ion-avatar slot="start" class="profile">
+            <img src="assets/images/person.png">
+          </ion-avatar>
+      <ion-title *ngFor="let user of userProfile">
+          <div>{{user.EMP_INTL}} {{user.EMP_NAME}} {{user.EMP_SURNME}}</div>
+        <div>{{user.JBT_THAIDESC}}</div>
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
 <ion-content class="full">  
-    <form>
+    <form [formGroup]="checkInForm" (ngSubmit)="onClickSubmit()">
     <ion-list>
-      <ion-item color="gel">
-        <ion-avatar slot="start">
-          <img src="assets/images/person.png">
-        </ion-avatar>
-        <ion-input *ngFor="let user of userProfile"><b>{{user.EMP_INTL}} {{user.EMP_NAME}} {{user.EMP_SURNME}}</b>
-        </ion-input>
-      </ion-item>
       <ion-item>
         <ion-label>เลือกโครงการ</ion-label>
-        <ion-select placeholder="โครงการ">
+        <ion-select placeholder="โครงการ" formControlName="ProjId">
           <ion-select-option *ngFor="let item of projects" [value]="item.proId">{{item.NAME}}</ion-select-option>
         </ion-select>
       </ion-item>
@@ -30,7 +34,7 @@
       </ion-card-content>
     </ion-card>
     <section class="full-width">
-      <ion-button expand="full" color="success" type="submit" (click)="onClickSubmit()">บันทึกเวลาทำงาน</ion-button>
+      <ion-button expand="full" color="success" type="submit" class="form-control">บันทึกเวลาทำงาน</ion-button>
     </section>
 
 
