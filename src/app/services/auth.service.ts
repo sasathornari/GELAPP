@@ -13,42 +13,27 @@ const TOKEN_KEY = 'auth-token';
   providedIn: "root"
 })
 export class AuthService {
-
-  authenticationState = new BehaviorSubject(false);
+  isAuthenticated(): boolean {
+    throw new Error("Method not implemented.");
+  }
 
   constructor(
     private httpService: HttpService,
     private storageService: StorageService,
-    private router: Router,
-    private storage: Storage,
-    private plt: Platform
-  ) {
-    this.plt.ready().then(() => {
-      this.chekckToken();
+    private router: Router
+    ) {}
+    
+    login(postData: any): Observable<any> {
+    return this.httpService.post('login', postData);
+    }
+    
+    signup(postData: any): Observable<any> {
+    return this.httpService.post('signup', postData);
+    }
+    
+    logout() {
+    this.storageService.removeStorageItem(AuthConstants.AUTH).then(res => {
+    this.router.navigate(['/login']);
     });
-  }
-
-  login(){
-    return this.storage.set(TOKEN_KEY, 'Bearer 123456').then(res => {
-      this.authenticationState.next(true);
-    });
-  }
-
-  logout() {
-    return this.storage.remove(TOKEN_KEY).then(() => {
-      this.authenticationState.next(false);
-    });
-  }
-
-  isAuthenticated(){
-    return this.authenticationState.value;
-  }
-  
-  chekckToken(){
-    return this.storage.get(TOKEN_KEY).then(res => {
-      if(res){
-        this.authenticationState.next(true);
-      }      
-    });
-  }
+    }
 }

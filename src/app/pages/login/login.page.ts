@@ -29,10 +29,10 @@ export class LoginPage implements OnInit {
     private storageService: StorageService,
     private toastService: ToastService,
     private userService: UserService
-  ) {}
+  ) { }
 
   ngOnInit() {
-    
+
   }
 
   validateInputs() {
@@ -47,59 +47,57 @@ export class LoginPage implements OnInit {
     );
   }
 
-loginAction() {
-    if (this.validateInputs()) {     
-     this.userService.getUsersLogin(this.postData.username,this.postData.password)
-     .subscribe(data => {
-       console.log(data.length);
-       const result = data.length;
-       if(result === 1){
-          
-            this.toastService.presentToast('ยินดีต้อนรับ คุณ'+ data[0].EMP_NAME+' เข้าสู่ระบบ')
-            this.router.navigate(['home/checktime',{userLogin: this.postData.username}])
-          
-        }else{
-          this.toastService.presentToast('กรุณาระบุชื่อและรหัสผ่านผู้ใช้งาน');
-        }
-     },
-       err => {
-        this.toastService.presentToast('กรุณาระบุชื่อและรหัสผ่านผู้ใช้งาน');
-         console.log(err)
-       }
-     )
-     // this.router.navigate(['home/checktime']);
-      
-    }else{
-      this.toastService.presentToast('กรุณาระบุชื่อและรหัสผ่านผู้ใช้งาน')
-    }
-    
-    
-  }
-  
+  loginAction() {
+      if (this.validateInputs()) {     
+       this.userService.getUsersLogin(this.postData.username,this.postData.password)
+       .subscribe(data => {
+         console.log(data.length);
+         const result = data.length;
+         if(result === 1){
 
+              this.toastService.presentToast('ยินดีต้อนรับ คุณ'+ data[0].EMP_NAME+' เข้าสู่ระบบ')
+              this.router.navigate(['home/checktime',{userLogin: this.postData.username}])
 
-  /*loginAction() {
-    if (this.validateInputs()) {
-      console.log(this.postData)
-      this.authService.login(this.postData).subscribe(
-        (res: any) => {
-          console.log(res)
-          if (res[0]) {
-            // Storing the User data.
-            this.storageService.store(AuthConstants.AUTH, res[0]);
-            this.router.navigate(["home/feed"]);
-          } else {
-            console.log("incorrect password.");
+          }else{
+            this.toastService.presentToast('กรุณาระบุชื่อและรหัสผ่านผู้ใช้งาน');
           }
-        },
-        (error: any) => {
-          console.log("Network Issue.");
-        }
-      );
-    } else {
-      console.log("Please enter email/username or password.");
-    }getListUser
-  }*/
+       },
+         err => {
+          this.toastService.presentToast('กรุณาระบุชื่อและรหัสผ่านผู้ใช้งาน');
+           console.log(err)
+         }
+       )
+       // this.router.navigate(['home/checktime']);
+
+      }else{
+        this.toastService.presentToast('กรุณาระบุชื่อและรหัสผ่านผู้ใช้งาน')
+      }
 
 
-}
+    }
+
+
+
+  // loginAction() {
+  //   if (this.validateInputs()) {
+  //     this.authService.login(this.postData).subscribe(
+  //       (res: any) => {
+  //         if (res.userData) {
+  //           // Storing the User data.
+  //           this.storageService.store(AuthConstants.AUTH, res.userData);
+  //           this.router.navigate(['home/feed']);
+  //         } else {
+  //           console.log('incorrect password.');
+  //         }
+  //       },
+  //       (error: any) => {
+  //         console.log('Network Issue.');
+  //       }
+  //     );
+  //   } else {
+  //     console.log('Please enter email/username or password.');
+  //   }
+  }
+
+
+

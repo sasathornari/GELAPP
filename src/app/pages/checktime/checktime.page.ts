@@ -87,16 +87,16 @@ export class ChecktimePage implements OnInit {
     console.log(this.postData.ProjId);
     alert(JSON.stringify(this.checkInForm.value,null,4));
     console.log(this.currentDate);
-    // if(this.timeIn === ''){
-    //   this.timeIn = this.now.toTimeString().substring(0,8); 
-    //   this.toastService.presentToast('เวลาเข้าทำงานคุณคือ '+ this.timeIn);
-    // }else if(this.timeIn !== '' && this.timeOut !== '')
-    // {
-    //   this.toastService.presentToast('เวลาทำงานของคุณได้บันทึกทั้งเข้าและออกแล้วi');
-    // }else{
-    //   this.timeOut = this.now.toTimeString().substring(0,8);
-    //   this.toastService.presentToast('เวลาออกทำงานของคุณคือ '+ this.timeOut);
-    // }
+    if(this.timeIn === ''){
+      this.timeIn = this.now.toTimeString().substring(0,8); 
+      this.toastService.presentToast('เวลาเข้าทำงานคุณคือ '+ this.timeIn);
+    }else if(this.timeIn !== '' && this.timeOut !== '')
+    {
+      this.toastService.presentToast('เวลาทำงานของคุณได้บันทึกทั้งเข้าและออกแล้วi');
+    }else{
+      this.timeOut = this.now.toTimeString().substring(0,8);
+      this.toastService.presentToast('เวลาออกทำงานของคุณคือ '+ this.timeOut);
+    }
 
     
       this.checkTime.saveTMA(this.checkInForm.value)
@@ -132,15 +132,15 @@ export class ChecktimePage implements OnInit {
     
   // }
 
-  // viewProjectAssign(){
-  //   this.projectService.getListProject()
-  //   .subscribe( res => {
-  //     this.projects = res;
-  //     //console.log(this.projects);
-  //   },
-  //     err => console.log(err)
-  //   )
-  // }
+  viewProjectAssign(){
+    this.projectService.getListProject()
+    .subscribe( res => {
+      this.projects = res;
+      //console.log(this.projects);
+    },
+      err => console.log(err)
+    )
+  }
 
   viewProfile(user: any){
     this.userService.getProfile(user)

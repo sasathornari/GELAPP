@@ -26,7 +26,7 @@
     <ion-card class="full">
       <ion-card-content style="text-align: center">
         <ion-card-title color="primary">
-          <h1 style="font-size: 42px;font-weight: bold;">{{now | date: 'HH:mm:ss' }}</h1>
+          <h1 style="font-size: 50px;font-weight: 900;">{{now | date: 'HH:mm:ss' }}</h1>
         </ion-card-title>
         <ion-card-title>
           <h2>{{timeToday | date: 'dd/MM/yyyy' }}</h2>
@@ -34,7 +34,7 @@
       </ion-card-content>
     </ion-card>
     <section class="full-width">
-      <ion-button expand="full" color="success" type="submit" class="form-control">บันทึกเวลาทำงาน</ion-button>
+      <ion-button expand="block" color="success" type="submit" class="form-control">บันทึกเวลาทำงาน</ion-button>
     </section>
 
 
@@ -43,7 +43,7 @@
   <ion-card>
   <ion-grid>
       <ion-row>
-        <ion-col>
+        <ion-col formControlName="timeIn">
           <div>เข้า: {{ timeIn }}</div>
         </ion-col>
         <ion-col>

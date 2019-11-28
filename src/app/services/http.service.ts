@@ -6,15 +6,15 @@ import { environment } from 'environments/environment.prod';
   providedIn: "root"
 })
 export class HttpService {
+  
   constructor(private http: HttpClient) {}
 
-  headers = new HttpHeaders({'Content-Type':'application/json'});
-  options = { headers: this.headers, withCredintials: false };
-  url = environment.apiUrl;
   post(serviceName: string, data: any) {
-    console.log(data);
-    console.log(this.headers);
-    return this.http.post(serviceName, JSON.stringify(data), this.options);
+  const headers = new HttpHeaders();
+  const options = { headers: headers, withCredintials: false };
+  const url = environment.apiUrl + serviceName;
+
+  return this.http.post(url, JSON.stringify(data), options);
   }
 
 
