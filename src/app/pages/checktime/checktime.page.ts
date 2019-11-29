@@ -84,8 +84,11 @@ export class ChecktimePage implements OnInit {
 
 
   onClickSubmit(){
+
+    console.log('---------event-----------');
+    console.log(event);
     console.log(this.postData.ProjId);
-    alert(JSON.stringify(this.checkInForm.value,null,4));
+    console.log(JSON.stringify(this.checkInForm.value,null,4));
     console.log(this.currentDate);
     if(this.timeIn === ''){
       this.timeIn = this.now.toTimeString().substring(0,8); 

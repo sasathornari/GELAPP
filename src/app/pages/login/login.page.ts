@@ -54,7 +54,6 @@ export class LoginPage implements OnInit {
          console.log(data.length);
          const result = data.length;
          if(result === 1){
-
               this.toastService.presentToast('ยินดีต้อนรับ คุณ'+ data[0].EMP_NAME+' เข้าสู่ระบบ')
               this.router.navigate(['home/checktime',{userLogin: this.postData.username}])
 
@@ -75,7 +74,7 @@ export class LoginPage implements OnInit {
 
 
     }
-
+   
 
 
   // loginAction() {
