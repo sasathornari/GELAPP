@@ -67,22 +67,5 @@ export class UserService {
     return this.http.get(`user/${id}`);
   }
 
-  /*async getListUser(){
-    let loading = await this.loadingCtrl.create();
-    await loading.present();
-  
-    let nativeCall = this.nativeHttp.get(`emp`, {}, {
-      'Content-Type': 'application/json'
-    });
-    
-    from(nativeCall).pipe(
-      finalize(() => loading.dismiss())
-    ).subscribe( data => {
-      this.data = JSON.parse(data.data);
-    }, err => {
-      console.log('JS Call error: ', err);
-      });
-  
-    
-  }*/
+
 }
