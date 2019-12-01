@@ -28,7 +28,7 @@ class ProjectRoutes {
         this.router.get('/tma/emp/:id', projectController.getTimeByEmpId);
         this.router.get('/tma/pro/:id', projectController.getTimeByProjId);
 
-        this.router.get('/location/:lat,:latAdd', projectController.getLocationInProject);
+        this.router.get('/location/:lat,:latAdd,:lng,:lngAdd', projectController.getLocationInProject);
 
         this.router.post('/create', projectController.ceateProjects);
         this.router.post('/assign', projectController.ceateProjectsAssign);

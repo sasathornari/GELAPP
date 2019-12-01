@@ -1,24 +1,20 @@
 <ion-header>
   <ion-toolbar color="gel">
-      <ion-avatar slot="start" class="profile">
-          <img src="assets/images/person.png">
-        </ion-avatar>
-    <ion-title *ngFor="let user of myProfile">
-        <div>{{user.EMP_INTL}} {{user.EMP_NAME}} {{user.EMP_SURNME}}</div>
-      <div>{{user.JBT_THAIDESC}}</div>
-    </ion-title>
+    <ion-title>เมนูอื่นๆ</ion-title>
   </ion-toolbar>
 </ion-header>
-<ion-content class="full">  
-  <form>
-  <ion-list>
-    <ion-item>
-      test
-    </ion-item>
-  </ion-list>
+<ion-content>
+    <ion-list>
+        <ion-item> 
+          <ion-icon name="person" slot="start" color="gel"></ion-icon>
+          <ion-label color="gel">ข้อมูลส่วนตัว</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-icon name="settings" slot="start" color="gel"></ion-icon>
+          <ion-label color="gel">ตั้งค่า</ion-label>
+        </ion-item>
+      </ion-list>
+  <p><ion-label><h5 style="padding: 0 1px 0 10px; color:#ccc;">เวอร์ชั่น 1.0.0 (2562)</h5></ion-label></p>
+  <ion-button expand="block" fill="outline" color="gel"(click)="logout()">ออกจากระบบ</ion-button>  
+</ion-content>  
 
-  <section class="full-width">
-    <ion-button expand="block" color="default" type="submit" class="form-control" (click)="logout()">ออกจากระบบ</ion-button>
-  </section>
-</form>
-</ion-content>

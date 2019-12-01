@@ -17,23 +17,54 @@ export class BaseUrlInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
     const url = environment.apiUrl;
-   
+    const token = localStorage.getItem('token');  
+
+    if (token) {
+      request = request.clone({
+        setHeaders: {
+          'Authorization': token,
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Methods': 'POST, GET, OPTIONS, PUT , DELETE',
+          'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
+        },
+        url: url + request.url
+      });
+    }  
+
+    if (!request.headers.has('Content-Type')) {
+      request = request.clone({
+        setHeaders: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Methods': 'POST, GET, OPTIONS, PUT , DELETE',
+          'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
+        },
+        url: url + request.url
+      });
+    }
+  
     request = request.clone({
-      setHeaders: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'POST, GET, OPTIONS, PUT , DELETE',
-        'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
-        'X-Custom-Header': 'x-header-value'
-      },
-      url: url + request.url
-      
+      headers: request.headers.set('Accept', 'application/json')
     });
+   
+    // request = request.clone({
+    //   setHeaders: {
+    //     'Content-Type': 'application/json',
+    //     'Access-Control-Allow-Origin': '*',
+    //     'Access-Control-Allow-Methods': 'POST, GET, OPTIONS, PUT , DELETE',
+    //     'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
+    //     'X-Custom-Header': 'x-header-value'
+    //   },
+    //   url: url + request.url
+      
+    // });
       return next.handle(request).pipe(
         map((event: HttpEvent<any>) => {
 
           if (event instanceof HttpResponse) {
             console.log('event--->>>', event);
+            console.log('token--->>>', token);
           }
           return event;
         }),

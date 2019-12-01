@@ -12,14 +12,15 @@
 <ion-content class="full">  
     <form [formGroup]="checkInForm" (ngSubmit)="onClickSubmit()">
     <ion-list>
-      <ion-item>
-        <ion-label>เลือกโครงการ</ion-label>
-        <ion-select placeholder="โครงการ" formControlName="ProjId">
-          <ion-select-option *ngFor="let item of projInLoation" [value]="item.proId">{{item.NAME}}</ion-select-option>
-        </ion-select>
+      <ion-item *ngFor="let value of projInLoation"  formControlName="ProjId">
+        <ion-icon name="locate" color="gel"></ion-icon> <ion-input color="gel" type="text">{{value.NAME}}</ion-input>
+        <!-- <ion-select placeholder="เลือกโครงการใกล้" formControlName="ProjId">
+          <ion-select-option *ngFor="let item of projInLoation" [value]="item.proId" selected>{{item.NAME}}</ion-select-option>
+        </ion-select> -->
       </ion-item>
+      
       <ion-item>
-        <ion-label>ตำแหน่งปัจจุบัน: {{ lat }}, {{ lng }}</ion-label>
+        <ion-label color="gel"><ion-icon name="pin"></ion-icon> {{ lat }}, {{ lng }}</ion-label>
       </ion-item>
     </ion-list>
 
@@ -32,10 +33,11 @@
           <h2>{{timeToday | date: 'dd/MM/yyyy' }}</h2>
         </ion-card-title>
       </ion-card-content>
+      <section class="full-width">
+          <ion-button expand="block" color="success" type="submit" class="form-control">บันทึกเวลาทำงาน</ion-button>
+        </section>
     </ion-card>
-    <section class="full-width">
-      <ion-button expand="block" color="success" type="submit" class="form-control">บันทึกเวลาทำงาน</ion-button>
-    </section>
+    
 
 
 

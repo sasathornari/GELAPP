@@ -23,33 +23,30 @@ export class ChecktimePage implements OnInit {
   projInLoation: any = [];
   sumInLocation: any = [];
 
-  timeAttendace: TimeAttendance;
-
-
-
-  userLogin = this.route.snapshot.paramMap.get("userLogin");
- 
+  timeAttendance: TimeAttendance;
 
   checkInForm: FormGroup;
 
   lat: any;
   lng: any;
 
-  timeToday: String;
+  userlogin: string;
+  timeToday: string;
   now: Date = new Date();
   date: Date = new Date(); 
-  currentDate = this.now.toISOString().substring(0,10) + ' ' + this.now.toTimeString().substring(0,8);
+  currentToday = this.now.toISOString().substring(0,10) + ' ' + this.now.toTimeString().substring(0,8);
+  currentDate = this.now.toISOString().substring(0,10);
+  currentTime = this.now.toTimeString().substring(0,8);
 
   timeIn = '';
   timeOut = '';
 
-  postData = {
-    checkIn: '',
-    checkOut: '',
-    ProjId: ''
-  }
+  cntInDate = '';
+  cntOutDate = '';
+  cntInTime = '';
+  cntOutTime = '';
 
-  
+   
   constructor(
     private userService: UserService,
     private projectService: ProjectService,
@@ -64,32 +61,41 @@ export class ChecktimePage implements OnInit {
         this.timeToday = Date.now().toString();
         setInterval(() => {
           this.now = new Date();
-        }, 1);
-
-        
+        }, 1);    
     }
 
   ngOnInit() {
-    
+    this.userlogin =  localStorage.getItem('token');
+
     this.checkInForm = this.fb.group({
       ProjId: [''],
-      empId: [''],
-      timeIn: [''],
-      timeOut: ['']
+      empId: [this.userlogin],
+      dateIn: [this.cntInDate],
+      timeIn: [this.cntInTime],
+      dateOut: [this.cntOutDate],
+      timeOut: [this.cntOutTime],
+      description: ['test'],
+      images: ['ทดสอบ'],  
+      userCreated: [this.userlogin],
+      dateCreated: [this.currentToday]
     })
     
-    //console.log('load');
-    this.viewProjectAssign();
-    this.viewProfile(this.userLogin);
+    console.log('this.userlogin -->',this.userlogin);
     this.ionViewDidLoad();
     this.checkLocationInProject();
+
+    this.userService.getProfile(this.userlogin)
+    .subscribe( res => {
+      this.userProfile = res;
+    },
+      err => console.log(err)
+    )
 
   }
 
 
   onClickSubmit(){
     console.log(JSON.stringify(this.checkInForm.value,null,4));
-    console.log(this.checkInForm.get('empId').value)
 
       this.alertCrtl.create({
         header: 'คุณอยู่นอกพื้นที่โครงการ',
@@ -105,9 +111,26 @@ export class ChecktimePage implements OnInit {
           {
             text: 'ยืนยัน',
             handler: () => {
-              this.toastService.presentToast('เวลา: '+ this.now.toTimeString().substring(0,8)+ '\nที่อยู่ปัจจุบัน: '+this.lat+','+this.lng);
-              const currentTime = this.now.toTimeString().substring(0,8); 
-              console.log('currentTime: '+ currentTime);
+              // this.toastService.presentToast('เวลา: '+ this.now.toTimeString().substring(0,8)+ '\nที่อยู่ปัจจุบัน: '+this.lat+','+this.lng);
+              // const currentTime = this.now.toTimeString().substring(0,8); 
+              // console.log('currentTime: '+ currentTime);
+
+              // check timeattendance on today
+              this.projectService.getTMAOnToday(this.userlogin)
+              .subscribe( res => {
+                console.log('TMA on today -->> ',res.length);
+                if(res.length === 0){
+                  this.checkInForm.controls['dateIn'].setValue(this.now.toISOString().substring(0,10));
+                  this.checkInForm.controls['timeIn'].setValue(this.now.toTimeString().substring(0,8));
+                  this.checkInForm.controls['ProjId'].setValue(this.projInLoation[0].ProjId);
+                  // Save new transaction time attendance to database on today.
+                  this.saveTimeAttendance();
+                  this.timeIn = this.now.toTimeString().substring(0,8);
+                }else{
+                  this.timeIn = res[0].time_in;
+                  console.log('Time In of database : ',this.timeIn)
+                }
+              })
             }
           }
         ]
@@ -137,38 +160,24 @@ export class ChecktimePage implements OnInit {
 
   }
 
-  // addTimeAttendance(){
+  findTMAofUser(user: any){
 
-  //   this.checkTime.getTMAByEmpId(this.userLogin)
-  //   .subscribe( data => {
-  //     this.timeById = data;
-  //     const result = this.timeById.length;
-  //     console.log(result);
-  //     if(result >= 1){
-
-  //     }else{
-  //       this.checkTime.saveTMA(this.checkInForm.value)
-  //       .subscribe( data => {
-  //         this.timeAttendace = this.checkInForm.value;
-  //       },
-  //         err => console.log(err)
-  //       )
-  //     }
-  //   },
-  //     err => console.log(err)
-  //   )
-
-    
-  // }
-
-  viewProjectAssign(){
-    this.projectService.getListProject()
-    .subscribe( res => {
-      this.projects = res;
-      //console.log(this.projects);
+    this.checkTime.getTMAByEmpId(user)
+    .subscribe( data => {
+      this.timeById = data;
+      //const result = data.length;
+      console.log(this.timeById.length);
+      // if(data.length >= 1){
+      //   console.log(this.timeById);
+      //   return this.timeById;
+      // }else{
+      //   return {message: 'ไม่พบข้อมูล'}
+      // }
     },
       err => console.log(err)
     )
+
+    
   }
 
   checkLocationInProject(){
@@ -177,15 +186,21 @@ export class ChecktimePage implements OnInit {
       this.lng = pos.coords.longitude;
       let latAdd = this.lat + 0.005;
       let latDiff = this.lat - 0.005;
-      // let logAdd = this.lng + 0.001;
-      // let logDiff = this.lng - 0.001;
-      this.projectService.getProjectInLoaction(latDiff,latAdd)
+      let lngAdd = this.lng + 0.005;
+      let lngDiff = this.lng - 0.005;
+      this.projectService.getProjectInLoaction(latDiff,latAdd,lngDiff,lngAdd)
       .subscribe( res => {
         console.log('-----------------Project In Location --------------');
         this.projInLoation = res;
         console.log(this.projInLoation.length);
+        
+
+        // Project near current location 
         if(this.projInLoation.length !== 0){
           this.projInLoation = res;
+          console.log(this.projInLoation[0].ProjId);
+          return this.projInLoation[0].ProjId;
+        // Location not near project
         }else{
           this.toastService.presentToast('คุณอยู่นอกพื้นที่โครงการที่กำหนด');
         }
@@ -198,15 +213,6 @@ export class ChecktimePage implements OnInit {
     
     
     
-  }
-
-  viewProfile(user: any){
-    this.userService.getProfile(user)
-    .subscribe( res => {
-      this.userProfile = res;
-    },
-      err => console.log(err)
-    )
   }
 
   ionViewDidLoad(){
@@ -228,6 +234,17 @@ export class ChecktimePage implements OnInit {
     )
   }
 
-  
 
+  saveTimeAttendance(){
+    this.projectService.saveTimeIn(this.checkInForm.value)
+    .subscribe( data => {        
+      this.timeAttendance = this.checkInForm.value;
+      console.log('this.timattendance: '+JSON.stringify(this.timeAttendance, null, 6));
+      console.log('Data: '+data);
+      this.toastService.presentToast('บันทึกแล้ว');
+    },
+    err => console.log(err)
+    );
+  }
+  
 }

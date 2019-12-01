@@ -2,11 +2,12 @@ export interface TimeAttendance {
     tmaId?: number;
     ProjId?: string;
     empId: string;
-    empTitle?: string;
-    empName?: string;
-    empSurname?: string;    
-    time_in: string;
-    time_out: string;    
+    dateIn?: string;
+    time_in?: string;
+    dateOut?: string;
+    time_out?: string;   
+    description?: string;
+    images?: string;  
     userCreated?: string;
     dateCreated?: string;
     ipCreated?: string;

@@ -6,6 +6,7 @@ import { StorageService } from "app/services/storage.service";
 import { ToastService } from "app/services/toast.service";
 import { UserService } from "app/services/user.service";
 import { User } from 'app/models/User';
+import { FormGroup, Validators, FormBuilder, NgForm } from '@angular/forms';
 
 
 
@@ -22,17 +23,21 @@ export class LoginPage implements OnInit {
 
   userLogin: any = [];
   user: User;
+  loginForm: FormGroup;
 
   constructor(
     private router: Router,
-    private authService: AuthService,
-    private storageService: StorageService,
     private toastService: ToastService,
-    private userService: UserService
+    private userService: UserService,
+    private formBuilder: FormBuilder
   ) { }
 
   ngOnInit() {
-
+    this.loginForm = this.formBuilder.group({
+      'username' : [null, Validators.required],
+      'password' : [null, Validators.required]
+    });
+    
   }
 
   validateInputs() {
@@ -54,8 +59,10 @@ export class LoginPage implements OnInit {
          console.log(data.length);
          const result = data.length;
          if(result === 1){
-              this.toastService.presentToast('ยินดีต้อนรับ คุณ'+ data[0].EMP_NAME+' เข้าสู่ระบบ')
-              this.router.navigate(['home/checktime',{userLogin: this.postData.username}])
+              this.toastService.presentToast('ยินดีต้อนรับ คุณ'+ data[0].EMP_NAME+' เข้าสู่ระบบ');
+              //this.router.navigate(['home/checktime',{userLogin: this.postData.username}])
+              localStorage.setItem('token', this.postData.username);
+              this.router.navigate(['home/checktime']);
 
           }else{
             this.toastService.presentToast('กรุณาระบุชื่อและรหัสผ่านผู้ใช้งาน');
@@ -77,25 +84,18 @@ export class LoginPage implements OnInit {
    
 
 
-  // loginAction() {
-  //   if (this.validateInputs()) {
-  //     this.authService.login(this.postData).subscribe(
-  //       (res: any) => {
-  //         if (res.userData) {
-  //           // Storing the User data.
-  //           this.storageService.store(AuthConstants.AUTH, res.userData);
-  //           this.router.navigate(['home/feed']);
-  //         } else {
-  //           console.log('incorrect password.');
+  // onFormSubmit(form: NgForm) {
+  //     this.authService.login(form)
+  //       .subscribe(res => {
+  //         if (res.token) {
+  //           localStorage.setItem('token', res.token);
+  //           this.router.navigate(['checktime']);
   //         }
-  //       },
-  //       (error: any) => {
-  //         console.log('Network Issue.');
-  //       }
-  //     );
-  //   } else {
-  //     console.log('Please enter email/username or password.');
+  //       }, (err) => {
+  //         console.log(err);
+  //       });
   //   }
+
   }
 
 

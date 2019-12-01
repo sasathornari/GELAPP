@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { throwError, Observable } from 'rxjs';
 import { Project } from 'app/models/Project';
+import { TimeAttendance } from 'app/models/TimeAttendance';
 
 @Injectable({
   providedIn: 'root'
@@ -49,8 +50,16 @@ export class ProjectService {
     return this.http.get(`project`);
   }
 
-  getProjectInLoaction(lat,latAdd){
-    return this.http.get(`project/location/${lat},${latAdd}`)
+  getProjectInLoaction(lat,latAdd,lng,lngAdd){
+    return this.http.get(`project/location/${lat},${latAdd},${lng},${lngAdd}`)
   }
 
+  getTMAOnToday(id: string): Observable<TimeAttendance[]> {
+    return this.http.get<TimeAttendance[]>(`project/tma/emp/${id}`);
+  }
+
+  saveTimeIn(tma: TimeAttendance){
+    return this.http.post(`project/tma`, tma);
+  }
+  
 }

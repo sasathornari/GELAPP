@@ -28,8 +28,8 @@ class ProjectController {
         [pass] +
         "'",
         function (err: any, row: any) {
-          const listproject = JSON.parse(JSON.stringify(row, null, 4));
-          res.json(listproject);
+          const listuser = JSON.parse(JSON.stringify(row, null, 4));
+          res.json(listuser);
         }
       );
     } catch (error) {
@@ -45,8 +45,8 @@ class ProjectController {
         [empId] +
         "'",
         function (err: any, row: any) {
-          const listproject = JSON.parse(JSON.stringify(row, null, 4));
-          res.json(listproject);
+          const listuser = JSON.parse(JSON.stringify(row, null, 4));
+          res.json(listuser);
         }
       );
     } catch (error) {
@@ -60,8 +60,8 @@ class ProjectController {
       await pool3.query(
         "select * from stplusc1_myapp.user_login where username = '" + [name] + "'",
         function (err: any, row: any) {
-          const listproject = JSON.parse(JSON.stringify(row, null, 4));
-          res.json(listproject);
+          const listuser = JSON.parse(JSON.stringify(row, null, 4));
+          res.json(listuser);
         }
       );
       //console.log(result);
@@ -76,8 +76,8 @@ class ProjectController {
       await pool3.query(
         "SELECT * FROM stplusc1_myapp.user_login WHERE role = " + [role],
         function (err: any, row: any) {
-          const listproject = JSON.parse(JSON.stringify(row, null, 4));
-          res.json(listproject);
+          const listuser = JSON.parse(JSON.stringify(row, null, 4));
+          res.json(listuser);
         }
       );
     } catch (error) {
@@ -91,8 +91,8 @@ class ProjectController {
       await pool3.query(
         "select PRS_NO from stplusc1_myapp.user_login where username = '" + [user] + "'",
         function (err: any, row: any) {
-          const listproject = JSON.parse(JSON.stringify(row, null, 4));
-          res.json(listproject);
+          const listuser = JSON.parse(JSON.stringify(row, null, 4));
+          res.json(listuser);
         }
       );
       //console.log(result);
@@ -102,7 +102,7 @@ class ProjectController {
   }
 
   public async getProjects(req: Request, res: Response) {
-    await pool3.query("select * from stplusc1_myapp.projects", function (
+    await pool3.query("select * from stplusc1_myapp.projects where onProject = 1t", function (
       err: any,
       row: any
     ) {
@@ -268,11 +268,16 @@ class ProjectController {
     try {
       const { lat } = req.params;
       const { latAdd } = req.params;
+      const { lng } = req.params;
+      const { lngAdd } = req.params;
       
       await pool3.query(
-        "SELECT * FROM stplusc1_myapp.projects " +
-        "where latitude  >= "+[lat]+" and latitude <= "+[latAdd],
+        "SELECT * FROM stplusc1_myapp.projects" +
+        " where latitude  >= " + [lat] + " and latitude <= "+ [latAdd] +
+        " and longitude >= " + [lng] + " and longitude <= " + [lngAdd] + 
+        " and onProject = 1 ",
         function (err: any, row: any) {
+          console.log(row);
           const listproject = JSON.parse(JSON.stringify(row, null, 4));
           console.log(listproject);
           res.json(listproject);

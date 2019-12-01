@@ -34,8 +34,8 @@ class ProjectController {
                     "' and password = '" +
                     [pass] +
                     "'", function (err, row) {
-                    const listproject = JSON.parse(JSON.stringify(row, null, 4));
-                    res.json(listproject);
+                    const listuser = JSON.parse(JSON.stringify(row, null, 4));
+                    res.json(listuser);
                 });
             }
             catch (error) {
@@ -50,8 +50,8 @@ class ProjectController {
                 yield connectMySQL_1.default.query("SELECT * FROM stplusc1_myapp.user_login WHERE PRS_NO = '" +
                     [empId] +
                     "'", function (err, row) {
-                    const listproject = JSON.parse(JSON.stringify(row, null, 4));
-                    res.json(listproject);
+                    const listuser = JSON.parse(JSON.stringify(row, null, 4));
+                    res.json(listuser);
                 });
             }
             catch (error) {
@@ -64,8 +64,8 @@ class ProjectController {
             try {
                 const { name } = req.params;
                 yield connectMySQL_1.default.query("select * from stplusc1_myapp.user_login where username = '" + [name] + "'", function (err, row) {
-                    const listproject = JSON.parse(JSON.stringify(row, null, 4));
-                    res.json(listproject);
+                    const listuser = JSON.parse(JSON.stringify(row, null, 4));
+                    res.json(listuser);
                 });
                 //console.log(result);
             }
@@ -79,8 +79,8 @@ class ProjectController {
             try {
                 const { role } = req.params;
                 yield connectMySQL_1.default.query("SELECT * FROM stplusc1_myapp.user_login WHERE role = " + [role], function (err, row) {
-                    const listproject = JSON.parse(JSON.stringify(row, null, 4));
-                    res.json(listproject);
+                    const listuser = JSON.parse(JSON.stringify(row, null, 4));
+                    res.json(listuser);
                 });
             }
             catch (error) {
@@ -93,8 +93,8 @@ class ProjectController {
             try {
                 const { user } = req.params;
                 yield connectMySQL_1.default.query("select PRS_NO from stplusc1_myapp.user_login where username = '" + [user] + "'", function (err, row) {
-                    const listproject = JSON.parse(JSON.stringify(row, null, 4));
-                    res.json(listproject);
+                    const listuser = JSON.parse(JSON.stringify(row, null, 4));
+                    res.json(listuser);
                 });
                 //console.log(result);
             }
@@ -105,7 +105,7 @@ class ProjectController {
     }
     getProjects(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield connectMySQL_1.default.query("select * from stplusc1_myapp.projects", function (err, row) {
+            yield connectMySQL_1.default.query("select * from stplusc1_myapp.projects where onProject = 1t", function (err, row) {
                 const listproject = JSON.parse(JSON.stringify(row, null, 4));
                 console.log(listproject);
                 res.json(listproject);
@@ -262,8 +262,13 @@ class ProjectController {
             try {
                 const { lat } = req.params;
                 const { latAdd } = req.params;
-                yield connectMySQL_1.default.query("SELECT * FROM stplusc1_myapp.projects " +
-                    "where latitude  >= " + [lat] + " and latitude <= " + [latAdd], function (err, row) {
+                const { lng } = req.params;
+                const { lngAdd } = req.params;
+                yield connectMySQL_1.default.query("SELECT * FROM stplusc1_myapp.projects" +
+                    " where latitude  >= " + [lat] + " and latitude <= " + [latAdd] +
+                    " and longitude >= " + [lng] + " and longitude <= " + [lngAdd] +
+                    " and onProject = 1 ", function (err, row) {
+                    console.log(row);
                     const listproject = JSON.parse(JSON.stringify(row, null, 4));
                     console.log(listproject);
                     res.json(listproject);
