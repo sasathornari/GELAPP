@@ -15,7 +15,7 @@
       <ion-item>
         <ion-label>เลือกโครงการ</ion-label>
         <ion-select placeholder="โครงการ" formControlName="ProjId">
-          <ion-select-option *ngFor="let item of projects" [value]="item.proId">{{item.NAME}}</ion-select-option>
+          <ion-select-option *ngFor="let item of projInLoation" [value]="item.proId">{{item.NAME}}</ion-select-option>
         </ion-select>
       </ion-item>
       <ion-item>
@@ -43,7 +43,7 @@
   <ion-card>
   <ion-grid>
       <ion-row>
-        <ion-col formControlName="timeIn">
+        <ion-col>
           <div>เข้า: {{ timeIn }}</div>
         </ion-col>
         <ion-col>

@@ -49,5 +49,8 @@ export class ProjectService {
     return this.http.get(`project`);
   }
 
+  getProjectInLoaction(lat,latAdd){
+    return this.http.get(`project/location/${lat},${latAdd}`)
+  }
 
 }

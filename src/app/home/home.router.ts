@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomePage } from './home.page';
-import { AuthGuardsService } from 'app/services/auth-guards.service';
+
 
 const routes: Routes = [
   {
@@ -9,10 +9,10 @@ const routes: Routes = [
     component: HomePage,
     children: [
       {
-        path: 'feed',
+        path: 'welcome',
         loadChildren: () =>
-          import("../pages/feed/feed.module").then(
-            m => m.FeedPageModule
+          import("../pages/welcome/welcome.module").then(
+            m => m.WelcomePageModule
           )
       },
       {

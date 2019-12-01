@@ -21,18 +21,19 @@ export class SettingsPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.viewProfile();
+    this.viewProfile(this.userLogin);
   }
 
   logout(){
     this.router.navigate(['/login']);
   }
 
-  viewProfile(){
-    this.userService.getProfile(this.userLogin)
-    .subscribe( data => {
-      this.myProfile = data;
-    }, err => console.log(err)
+  viewProfile(user: any){
+    this.userService.getProfile(user)
+    .subscribe( res => {
+      this.myProfile = res;
+    },
+      err => console.log(err)
     )
   }
 
