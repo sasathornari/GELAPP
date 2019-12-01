@@ -4,41 +4,20 @@ import { Observable, throwError, from } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { environment } from 'environments/environment.prod';
 import { Router } from '@angular/router';
-import { ToastController, AlertController } from '@ionic/angular';
-import { AuthService } from 'app/services/auth.service';
+import { ToastController } from '@ionic/angular';
 
 @Injectable()
 export class BaseUrlInterceptor implements HttpInterceptor {
 
   constructor(
     private router: Router,
-    public toastController: ToastController,
-    private authService: AuthService,
-    private storage: Storage, 
-    private alertCtrl: AlertController
+    public toastController: ToastController
   ) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
     const url = environment.apiUrl;
-    //let promise = this.storage.get('my_token');
-
-    // private addToken(request: HttpRequest<any>, token: any) {
-    //   if (token) {
-    //       let clone: HttpRequest<any>;
-    //       clone = request.clone({
-    //           setHeaders: {
-    //               Accept: `application/json`,
-    //               'Content-Type': `application/json`,
-    //               Authorization: `Bearer ${token}`
-    //           }
-    //       });
-    //       return clone;
-    //   }
-  
-    //   return request;
-    // }
-
+   
     request = request.clone({
       setHeaders: {
         'Content-Type': 'application/json',
