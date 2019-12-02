@@ -67,14 +67,17 @@ export class ChecktimePage implements OnInit {
     this.userlogin = localStorage.getItem('token');
 
     this.checkInForm = this.fb.group({
-      ProjId: [''],
       empId: [this.userlogin],
+      ProjId_in: [''],
       dateIn: [''],
       time_in: [''],
+      latitude_in: [''],
+      longtitude_in: [''],
+      ProjId_out: [''],   
       dateOut: [''],
       time_out: [''],
-      latitude: [''],
-      longtitude: [''],
+      latitude_out: [''],
+      longtitude_out: [''],
       description: [''],
       images: [''],
       userCreated: [''],
@@ -120,12 +123,12 @@ export class ChecktimePage implements OnInit {
               },
               {
                 text: 'ยืนยัน',
-                handler: () => {
+                handler: () => {                                   
+                  this.checkInForm.controls['ProjId_in'].setValue(this.projInLoation[0].ProjId);
                   this.checkInForm.controls['dateIn'].setValue(this.now.toISOString().substring(0, 10));
-                  this.checkInForm.controls['time_in'].setValue(this.now.toTimeString().substring(0, 8));                  
-                  this.checkInForm.controls['ProjId'].setValue(this.projInLoation[0].ProjId);
-                  this.checkInForm.controls['latitude'].setValue(this.lat);
-                  this.checkInForm.controls['longtitude'].setValue(this.lng);
+                  this.checkInForm.controls['time_in'].setValue(this.now.toTimeString().substring(0, 8)); 
+                  this.checkInForm.controls['latitude_in'].setValue(this.lat);
+                  this.checkInForm.controls['longtitude_in'].setValue(this.lng);
                   this.checkInForm.controls['userCreated'].setValue(this.userlogin);
                   this.checkInForm.controls['dateCreated'].setValue(this.currentToday);
                   // Save new transaction time attendance to database on today.
@@ -139,40 +142,21 @@ export class ChecktimePage implements OnInit {
             alert.present();
           });
 
-        } else {
-          console.log(res[0].time_in)
-          this.checkInForm.controls['dateOut'].setValue(this.now.toISOString().substring(0, 10));
-          this.checkInForm.controls['time_out'].setValue(this.now.toTimeString().substring(0, 8));
-          this.checkInForm.controls['userUpdated'].setValue(this.userlogin);
-          this.checkInForm.controls['dateUpdated'].setValue(this.currentToday);
-          this.updateTimeAttendance();
-          this.toastService.presentToast('คุณบันทึกเวลาทำงานเรียบร้อยแล้ว');
-        //  if (res[0].time_out === '' || res[0].time_out === null || res[0].time_out ==='00:00:00') {
-            
-        //     this.alertCrtl.create({
-        //       header: 'บันทึกเวลาการทำงาน',
-        //       message: 'คุณต้องการบันทึกเวลาออกใช่หรือไม่',
-        //       buttons: [
-        //         {
-        //           text: 'ยกเลิก',
-        //           role: 'cancel',
-        //           handler: () => {
-        //             this.toastService.presentToast('คุณไม่ได้บันทึกเวลาทำงาน');
-        //           }
-        //         },
-        //         {
-        //           text: 'บันทึก',
-        //           handler: () => {
-        //             this.checkInForm.controls['dateOut'].setValue(this.now.toISOString().substring(0, 10));
-        //             this.checkInForm.controls['time_out'].setValue(this.now.toTimeString().substring(0, 8));
-        //             this.checkInForm.controls['ProjId'].setValue(this.projInLoation[0].ProjId);
-        //             this.updateTimeAttendance();
-        //             this.toastService.presentToast('คุณบันทึกเวลาทำงานเรียบร้อยแล้ว');
-        //           }
-        //         }
-        //       ]
-        //     });
-        //   }
+        } else if((res[0].time_out === '00:00:00' || res[0].time_out === '' || res[0].time_out === null) && (res[0].dateOut === '0000-00-00' || res[0].dateOut === '' || res[0].dateOut === null)){
+          console.log(res[0].time_out)
+            this.checkInForm.controls['ProjId_out'].setValue(this.projInLoation[0].ProjId);
+            this.checkInForm.controls['dateOut'].setValue(this.now.toISOString().substring(0, 10));
+            this.checkInForm.controls['time_out'].setValue(this.now.toTimeString().substring(0, 8));
+            this.checkInForm.controls['latitude_out'].setValue(this.lat);
+            this.checkInForm.controls['longtitude_out'].setValue(this.lng);
+            this.checkInForm.controls['userUpdated'].setValue(this.userlogin);
+            this.checkInForm.controls['dateUpdated'].setValue(this.currentToday);
+            this.updateTimeAttendance();
+            this.timeOut = res[0].time_out;
+            this.toastService.presentToast('คุณบันทึกเวลาทำงานเรียบร้อยแล้ว');
+        
+        }else{
+            this.toastService.presentToast('คุณได้บันทึกเวลาทำงานแล้ว');          
         }
       },
         err => {
@@ -266,7 +250,8 @@ export class ChecktimePage implements OnInit {
   saveTimeAttendance() {
     this.checkTime.saveTMA(this.checkInForm.value)
       .subscribe(data => {
-        this.timeAttendance = this.checkInForm.value;
+        this.timeAttendance = this.checkInForm.value;        
+        this.timeIn = this.timeAttendance.time_in;
         console.log('this.timattendance: ' + JSON.stringify(this.timeAttendance, null, 6));
         console.log('Data: ' + data);
         this.toastService.presentToast('บันทึกแล้ว');
@@ -279,9 +264,10 @@ export class ChecktimePage implements OnInit {
     this.checkTime.updateTMA(this.userlogin, this.checkInForm.value)
       .subscribe(res => {
         this.timeAttendance = this.checkInForm.value;
+        this.timeOut = this.timeAttendance.time_out;
         console.log('this.timattendance: ' + JSON.stringify(this.timeAttendance, null, 6));
         this.toastService.presentToast('บันทึกเปลี่ยนแปลงเรียบร้อย');
-
+      
       },
         err => {
           this.toastService.presentToast(err);

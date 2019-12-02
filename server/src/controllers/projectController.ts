@@ -271,7 +271,7 @@ class ProjectController {
       const { dateIn } = req.params;
       await pool3.query(
         "select * from stplusc1_myapp.tma WHERE empId = '" + [id] + "' " +
-        "and ProjId = '" + [locate] + "' and dateIn = '" + [dateIn] + "' ",
+        "and ProjId_in = '" + [locate] + "' and dateIn = '" + [dateIn] + "' ",
         function (err: any, row: any) {
           const listproject = JSON.parse(JSON.stringify(row, null, 4));
           console.log(listproject);
@@ -391,8 +391,15 @@ class ProjectController {
     const { id } = req.params;
     try {
       const result = await pool3.query(
-        "UPDATE stplusc1_myapp.tma set dateOut = '" + [req.body.dateOut] + "', " +
-        "time_out = '"+ [req.body.time_out] + "' and userUpdated = '" + [req.body.userCreated] +"' WHERE empId = '" + [id] + "' "
+        "UPDATE stplusc1_myapp.tma set " +
+        "ProjId_out = '" + [req.body.ProjId_out] + "', " +
+        "dateOut = '" + [req.body.dateOut] + "', " +
+        "time_out = '"+ [req.body.time_out] + "', " + 
+        "latitude_out = '" + [req.body.latitude_out] + "', " +
+        "longtitude_out = '" + [req.body.longtitude_out] + "', " +
+        "userUpdated ='" + [req.body.userUpdated] + "', " + 
+        "dateUpdated = '" + [req.body.dateUpdated] +"' " +
+        "WHERE empId = '" + [id] + "' "
       );
       console.log(result);
       res.json({ message: "update Project Success = " + [req.body.time_out] });

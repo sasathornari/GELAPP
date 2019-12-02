@@ -25,6 +25,7 @@ export class SettingsPage implements OnInit {
   }
 
   logout(){
+    localStorage.removeItem('token');
     this.router.navigate(['/login']);
   }
 
