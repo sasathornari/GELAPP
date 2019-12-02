@@ -26,7 +26,9 @@ class Server {
             'http://localhost:8100',
             'http://localhost:53703',
             'http://localhost:4200',
-            'https://human.3stplus.co.th'
+            'https://human.3stplus.co.th',
+            'http://tma.gel.co.th',
+            '*'
         ];
         // Reflect the origin if it's in the allowed list or not defined (cURL, Postman, etc.)
         const corsOptions = {

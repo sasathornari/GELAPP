@@ -7,20 +7,12 @@ const routes: Routes = [
     path: '',
     component: IndexPage,
     children: [
-      /*{
+      {
         path: '',
         loadChildren: () =>
           import("../pages/welcome/welcome.module").then(
             m => m.WelcomePageModule
           )
-      },*/
-      {
-        path: '',
-        loadChildren: () =>
-          import("../pages/login/login.module").then(
-            m => m.LoginPageModule
-          ),
-          pathMatch: 'full'
       },
       {
         path: 'login',
@@ -29,6 +21,7 @@ const routes: Routes = [
             m => m.LoginPageModule
           )
       }
+
     ]
   }
 ];

@@ -13,7 +13,7 @@
     <form [formGroup]="checkInForm" (ngSubmit)="onClickSubmit()">
     <ion-list>
       <ion-item *ngFor="let value of projInLoation">
-        <ion-icon name="locate" color="gel"></ion-icon> <ion-input color="gel" type="text" formControlName="ProjId">{{value.NAME}}</ion-input>
+        <ion-icon name="locate" color="gel"></ion-icon> <ion-input color="gel" type="text" formControlName="ProjId_in">{{value.NAME}}</ion-input>
         <!-- <ion-select placeholder="เลือกโครงการใกล้" formControlName="ProjId">
           <ion-select-option *ngFor="let item of projInLoation" [value]="item.proId" selected>{{item.NAME}}</ion-select-option>
         </ion-select> -->

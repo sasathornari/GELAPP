@@ -35,16 +35,9 @@ export class ChecktimePage implements OnInit {
   now: Date = new Date();
   date: Date = new Date();
   currentToday = this.now.toISOString().substring(0, 10) + ' ' + this.now.toTimeString().substring(0, 8);
-  currentDate = this.now.toISOString().substring(0, 10);
-  currentTime = this.now.toTimeString().substring(0, 8);
 
   timeIn = '';
   timeOut = '';
-
-  cntInDate = '';
-  cntOutDate = '';
-  cntInTime = '';
-  cntOutTime = '';
 
 
   constructor(
