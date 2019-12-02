@@ -257,6 +257,24 @@ class ProjectController {
             }
         });
     }
+    findCurrentTMAById(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const { id } = req.params;
+                const { locate } = req.params;
+                const { dateIn } = req.params;
+                yield connectMySQL_1.default.query("select * from stplusc1_myapp.tma WHERE empId = '" + [id] + "' " +
+                    "and ProjId = '" + [locate] + "' and dateIn = '" + [dateIn] + "' ", function (err, row) {
+                    const listproject = JSON.parse(JSON.stringify(row, null, 4));
+                    console.log(listproject);
+                    res.json(listproject);
+                });
+            }
+            catch (error) {
+                console.log(error);
+            }
+        });
+    }
     getLocationInProject(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
@@ -363,9 +381,10 @@ class ProjectController {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
             try {
-                const result = yield connectMySQL_1.default.query("UPDATE stplusc1_myapp.tma set ? ", [req.body] + " WHERE empId = '" + [id] + "' ");
+                const result = yield connectMySQL_1.default.query("UPDATE stplusc1_myapp.tma set dateOut = '" + [req.body.dateOut] + "', " +
+                    "time_out = '" + [req.body.time_out] + "' and userUpdated = '" + [req.body.userCreated] + "' WHERE empId = '" + [id] + "' ");
                 console.log(result);
-                res.json({ message: "update Project Success = " + [req.body] });
+                res.json({ message: "update Project Success = " + [req.body.time_out] });
             }
             catch (error) {
                 console.log(error);

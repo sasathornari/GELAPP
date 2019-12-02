@@ -264,6 +264,25 @@ class ProjectController {
     }
   }
 
+  public async findCurrentTMAById(req: Request, res: Response): Promise<any> {
+    try {
+      const { id } = req.params;
+      const { locate } = req.params;
+      const { dateIn } = req.params;
+      await pool3.query(
+        "select * from stplusc1_myapp.tma WHERE empId = '" + [id] + "' " +
+        "and ProjId = '" + [locate] + "' and dateIn = '" + [dateIn] + "' ",
+        function (err: any, row: any) {
+          const listproject = JSON.parse(JSON.stringify(row, null, 4));
+          console.log(listproject);
+          res.json(listproject);
+        }
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   public async getLocationInProject(req: Request, res: Response): Promise<any> {
     try {
       const { lat } = req.params;
@@ -372,15 +391,16 @@ class ProjectController {
     const { id } = req.params;
     try {
       const result = await pool3.query(
-        "UPDATE stplusc1_myapp.tma set ? ",
-        [req.body] + " WHERE empId = '" + [id] + "' "
+        "UPDATE stplusc1_myapp.tma set dateOut = '" + [req.body.dateOut] + "', " +
+        "time_out = '"+ [req.body.time_out] + "' and userUpdated = '" + [req.body.userCreated] +"' WHERE empId = '" + [id] + "' "
       );
       console.log(result);
-      res.json({ message: "update Project Success = " + [req.body] });
+      res.json({ message: "update Project Success = " + [req.body.time_out] });
     } catch (error) {
       console.log(error);
     }
   }
+
 
   public async updateAssignById(req: Request, res: Response): Promise<void> {
     const { id } = req.params;

@@ -12,15 +12,17 @@
 <ion-content class="full">  
     <form [formGroup]="checkInForm" (ngSubmit)="onClickSubmit()">
     <ion-list>
-      <ion-item *ngFor="let value of projInLoation"  formControlName="ProjId">
-        <ion-icon name="locate" color="gel"></ion-icon> <ion-input color="gel" type="text">{{value.NAME}}</ion-input>
+      <ion-item *ngFor="let value of projInLoation">
+        <ion-icon name="locate" color="gel"></ion-icon> <ion-input color="gel" type="text" formControlName="ProjId">{{value.NAME}}</ion-input>
         <!-- <ion-select placeholder="เลือกโครงการใกล้" formControlName="ProjId">
           <ion-select-option *ngFor="let item of projInLoation" [value]="item.proId" selected>{{item.NAME}}</ion-select-option>
         </ion-select> -->
       </ion-item>
       
       <ion-item>
-        <ion-label color="gel"><ion-icon name="pin"></ion-icon> {{ lat }}, {{ lng }}</ion-label>
+          <ion-icon name="pin" color="gel"></ion-icon> 
+          <ion-input formControlName="latitude" type="text">{{ lat }}, </ion-input>
+          <ion-input formControlName="longtitude" type="text">{{ lng }}</ion-input>
       </ion-item>
     </ion-list>
 
@@ -48,7 +50,7 @@
         <ion-col>
           <div>เข้า: {{ timeIn }}</div>
         </ion-col>
-        <ion-col>
+        <ion-col formControlName="longtitude">
           <div>ออก: {{ timeOut }}</div>
         </ion-col>
       </ion-row>

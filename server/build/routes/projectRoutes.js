@@ -26,6 +26,7 @@ class ProjectRoutes {
         this.router.get('/tma', projectController_1.default.getTimeAttendance);
         this.router.get('/tma/emp/:id', projectController_1.default.getTimeByEmpId);
         this.router.get('/tma/pro/:id', projectController_1.default.getTimeByProjId);
+        this.router.get('/currentTMA/:id,:locate,:dateIn', projectController_1.default.findCurrentTMAById);
         this.router.get('/location/:lat,:latAdd,:lng,:lngAdd', projectController_1.default.getLocationInProject);
         this.router.post('/create', projectController_1.default.ceateProjects);
         this.router.post('/assign', projectController_1.default.ceateProjectsAssign);

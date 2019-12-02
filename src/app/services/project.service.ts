@@ -53,13 +53,6 @@ export class ProjectService {
   getProjectInLoaction(lat,latAdd,lng,lngAdd){
     return this.http.get(`project/location/${lat},${latAdd},${lng},${lngAdd}`)
   }
-
-  getTMAOnToday(id: string): Observable<TimeAttendance[]> {
-    return this.http.get<TimeAttendance[]>(`project/tma/emp/${id}`);
-  }
-
-  saveTimeIn(tma: TimeAttendance){
-    return this.http.post(`project/tma`, tma);
-  }
+  
   
 }

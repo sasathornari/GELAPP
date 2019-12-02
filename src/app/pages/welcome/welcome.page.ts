@@ -8,12 +8,12 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class WelcomePage implements OnInit {
 
-  userLogin = this.route.snapshot.paramMap.get("userLogin");
-
+  userlogin: string;
+  
   constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
-    console.log(this.userLogin)
+    this.userlogin = localStorage.getItem('token');
   }
 
 }

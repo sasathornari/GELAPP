@@ -6,6 +6,8 @@ export interface TimeAttendance {
     time_in?: string;
     dateOut?: string;
     time_out?: string;   
+    latitude: string;
+    longtitude: string;
     description?: string;
     images?: string;  
     userCreated?: string;
