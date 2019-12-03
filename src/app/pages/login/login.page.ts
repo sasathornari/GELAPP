@@ -1,8 +1,5 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
-import { AuthConstants } from "app/config/auth-constants";
-import { AuthService } from "app/services/auth.service";
-import { StorageService } from "app/services/storage.service";
 import { ToastService } from "app/services/toast.service";
 import { UserService } from "app/services/user.service";
 import { User } from 'app/models/User';
@@ -61,8 +58,9 @@ export class LoginPage implements OnInit {
          if(result === 1){
               this.toastService.presentToast('ยินดีต้อนรับ คุณ'+ data[0].EMP_NAME+' เข้าสู่ระบบ');
               //this.router.navigate(['home/checktime',{userLogin: this.postData.username}])
-              localStorage.setItem('token', this.postData.username);
               this.router.navigate(['home/checktime']);
+              localStorage.setItem('token', this.postData.username);
+              
 
           }else{
             this.toastService.presentToast('กรุณาระบุชื่อและรหัสผ่านผู้ใช้งาน');

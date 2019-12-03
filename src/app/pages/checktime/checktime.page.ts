@@ -29,6 +29,8 @@ export class ChecktimePage implements OnInit {
 
   lat: any;
   lng: any;
+  displayBtn: string;
+  col: string;
 
   userlogin: string;
   timeToday: string;
@@ -81,7 +83,7 @@ export class ChecktimePage implements OnInit {
 
     //console.log('this.userlogin -->',this.userlogin);
     this.ionViewDidLoad();
-    this.checkLocationInProject();
+    //this.findLocation2Project();
     this.findListTMA();
 
     this.userService.getProfile(this.userlogin)
@@ -180,7 +182,7 @@ export class ChecktimePage implements OnInit {
 
   }
 
-  checkLocationInProject() {
+  findLocation2Project() {
     this.geo.getCurrentPosition().then(pos => {
       this.lat = pos.coords.latitude;
       this.lng = pos.coords.longitude;
@@ -198,8 +200,8 @@ export class ChecktimePage implements OnInit {
           // Project near current location 
           if (this.projInLoation.length !== 0) {
             this.projInLoation = res;
-            console.log(this.projInLoation[0].ProjId);
-            return this.projInLoation[0].ProjId;
+            console.log(this.projInLoation[0].ProjId_in);
+            return this.projInLoation[0].ProjId_in;
             // Location not near project
           } else {
             this.toastService.presentToast('คุณอยู่นอกพื้นที่โครงการที่กำหนด');
@@ -219,9 +221,44 @@ export class ChecktimePage implements OnInit {
     this.geo.getCurrentPosition().then(pos => {
       this.lat = pos.coords.latitude;
       this.lng = pos.coords.longitude;
-      //console.log(this.lat,this.lng);
+      
+      // set neary location of project distance 50 m.
+      let latAdd = this.lat + 0.005;
+      let latDiff = this.lat - 0.005;
+      let lngAdd = this.lng + 0.005;
+      let lngDiff = this.lng - 0.005;
+
+      // Check project neary 
+      this.projectService.getProjectInLoaction(latDiff, latAdd, lngDiff, lngAdd)
+      .subscribe(res => {
+        console.log('-----------------Project In Location --------------');
+        this.projInLoation = res;
+        console.log(this.projInLoation.length);
+
+
+        // Project near current location 
+        if (this.projInLoation.length !== 0) {
+          this.projInLoation = res;
+          console.log(this.projInLoation[0].ProjId);
+          return this.projInLoation[0].ProjId;
+          // Location not near project
+        } else {
+          this.toastService.presentToast('คุณอยู่นอกพื้นที่โครงการที่กำหนด');
+        }
+
+      },
+        err => console.log(err)
+      )
+
     }).catch(err => console.log(err));
 
+    if(this.timeIn === '' && this.timeOut === ''){
+      this.displayBtn = 'บันทึกเวลาเข้า';
+      this.col = 'success';
+    }else if(this.timeIn !== ''){
+      this.displayBtn = 'บันทึกเวลาออก';
+      this.col = 'danger';
+    }
 
   }
 

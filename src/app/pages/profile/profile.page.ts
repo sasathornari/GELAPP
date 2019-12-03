@@ -9,7 +9,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ProfilePage implements OnInit {
 
-  userLogin = this.route.snapshot.paramMap.get("userLogin");
+  userlogin: any;
   myProfile: any = [];
 
   constructor(
@@ -20,11 +20,12 @@ export class ProfilePage implements OnInit {
 
 
   ngOnInit() {
+    this.userlogin = localStorage.getItem('token');
     this.viewProfile();
   }
 
   viewProfile(){
-    this.userService.getProfile(this.userLogin)
+    this.userService.getProfile(this.userlogin)
     .subscribe( data => {
       this.myProfile = data;
     }, err => console.log(err)

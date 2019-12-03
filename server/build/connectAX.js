@@ -13,7 +13,7 @@ const sql = require('mssql');
 const pool2 = new sql.ConnectionPool({
     user: 'GELIntra',
     password: 'w,jgxHowi',
-    server: '192.168.99.5',
+    server: '192.168.88.5',
     //server: '147.50.42.162',
     database: 'GEL12'
 });

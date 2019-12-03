@@ -7,9 +7,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NotificationsPage implements OnInit {
 
+  userlogin: any;
   constructor() { }
 
   ngOnInit() {
+    this.userlogin = localStorage.getItem('token');
   }
 
 }

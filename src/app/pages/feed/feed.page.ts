@@ -7,9 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FeedPage implements OnInit {
 
+  userlogin: any;
+
   constructor() { }
 
   ngOnInit() {
+    this.userlogin = localStorage.getItem('token');
   }
 
 }

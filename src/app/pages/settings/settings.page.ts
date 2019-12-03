@@ -11,7 +11,7 @@ import { UserService } from 'app/services/user.service';
 })
 export class SettingsPage implements OnInit {
 
-  userLogin = this.route.snapshot.paramMap.get("userLogin");
+  userlogin: any;
   myProfile: any = [];
 
   constructor(
@@ -21,12 +21,13 @@ export class SettingsPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.viewProfile(this.userLogin);
+    this.userlogin = localStorage.getItem('token');
+    this.viewProfile(this.userlogin);
   }
 
   logout(){
     localStorage.removeItem('token');
-    this.router.navigate(['/login']);
+    this.router.navigate(['/home/checktime']);
   }
 
   viewProfile(user: any){
