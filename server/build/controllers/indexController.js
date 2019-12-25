@@ -123,6 +123,29 @@ class IndexController {
             }
         });
     }
+    getUsernameApp(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { id } = req.params;
+            const { pass } = req.params;
+            try {
+                const result = yield connectBPlus_1.default.query("select PRS_NO,EMP_I_CARD,EMP_INTL,EMP_NAME,EMP_SURNME,EMP_GENDER," +
+                    "EMP_MARITAL,EMP_BIRTH,PRS_JBT,JBT_THAIDESC,PRS_DEPT,DEPT_THAIDESC, " +
+                    "EMP_I_CARD as username, PRS_NO as password " +
+                    "from GEL.dbo.PERSONALINFO " +
+                    "inner join GEL.dbo.EMPFILE on EMP_KEY = PRS_EMP " +
+                    "inner join GEL.dbo.JOBTITLE on PRS_JBT = JBT_KEY " +
+                    "inner join GEL.dbo.DEPTTAB on PRS_DEPT = DEPT_KEY " +
+                    "where EMP_BIRTH = '" + [id] + "' and PRS_NO = '" + [pass] + "' ");
+                console.log(result);
+                res.setHeader('Content-Type', 'application/json');
+                res.json(result.recordsets[0]);
+                //res.status(404).json({ text: "Username doesn't exits" });
+            }
+            catch (error) {
+                console.log(error);
+            }
+        });
+    }
     getProfile(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;

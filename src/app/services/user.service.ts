@@ -59,8 +59,8 @@ export class UserService {
     return this.http.get<User[]>(`user/${id},${pass}`);
   }
 
-  getUsers(id: any, pass: any) {
-    return this.http.get(`user/${id},${pass}`);
+  getUsersApp(id: any, pass: any): Observable<User[]> {
+    return this.http.get<User[]>(`userapp/${id},${pass}`);
   }
 
   getProfile(id: string) {

@@ -21,6 +21,7 @@ class IndexRoutes {
         
         // FRONTEND GET DATA OF APPLICATION
         this.router.get('/user/:id,:pass', indexController.getUsername);
+        this.router.get('/userapp/:id,:pass', indexController.getUsernameApp);
         this.router.get('/user/:id', indexController.getProfile);
 
         // BACKEND GET DATA OF WEBSITE        

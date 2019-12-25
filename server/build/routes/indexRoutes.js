@@ -19,6 +19,7 @@ class IndexRoutes {
         this.router.get('/dept/:id', indexController_1.default.getDepartmentById);
         // FRONTEND GET DATA OF APPLICATION
         this.router.get('/user/:id,:pass', indexController_1.default.getUsername);
+        this.router.get('/userapp/:id,:pass', indexController_1.default.getUsernameApp);
         this.router.get('/user/:id', indexController_1.default.getProfile);
         // BACKEND GET DATA OF WEBSITE        
         this.router.get('/projectAX', indexController_1.default.getProjectInAX);

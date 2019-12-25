@@ -50,8 +50,9 @@ export class LoginPage implements OnInit {
   }
 
   loginAction() {
+    console.log(new Date(this.postData.username))
       if (this.validateInputs()) {     
-       this.userService.getUsersLogin(this.postData.username,this.postData.password)
+       this.userService.getUsersApp(this.postData.username,this.postData.password)
        .subscribe(data => {
          console.log(data.length);
          const result = data.length;
