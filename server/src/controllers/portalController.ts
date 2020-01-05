@@ -31,6 +31,34 @@ class PortalController {
     }
   }
 
+  public async getListUserWeb(req: Request, res: Response): Promise<any> {
+    try {
+        await pool.query("SELECT * FROM my3plus.user_login", function(err: any, row: any) {
+          const listuserweb = JSON.parse(JSON.stringify(row, null, 4));
+          res.json(listuserweb);
+        }
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  public async findUserLogin(req: Request, res: Response): Promise<any> {
+    try {
+      const { id } = req.params;
+      const { pass } = req.params;
+        await pool.query("SELECT * FROM my3plus.user_login where username = '" + [id] + "' and password = '" + [pass] + "' ", 
+        function(err: any, row: any) {
+          const listuserweb = JSON.parse(JSON.stringify(row, null, 4));
+          res.json(listuserweb);
+        }
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  
+
   public async fileUploads(req: Request, res: Response): Promise<void> {
     try {
       const result = await pool.query("INSERT INTO my3plus.fileupload set ?", [
