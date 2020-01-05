@@ -14,6 +14,7 @@ class PortalRoutes {
         // CREATE DATA 
         this.router.post('/post-create', portalController_1.default.createNewPost);
         this.router.post('/fileupload', portalController_1.default.fileUploads);
+        this.router.post('/web/user', portalController_1.default.createUserWeb);
         // READ DATA PORTAL INTRANET OF GEL
         this.router.get('/cate', portalController_1.default.getPostCategory);
         this.router.get('/post', portalController_1.default.getAllPost);

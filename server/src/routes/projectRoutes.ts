@@ -29,13 +29,12 @@ class ProjectRoutes {
         this.router.get('/tma/pro/:id', projectController.getTimeByProjId);
         this.router.get('/currentTMA/:id,:locate,:dateIn', projectController.findCurrentTMAById);
 
-
+        // BACKEND CREATE DATA OF WEBSITE
         this.router.get('/location/:lat,:latAdd,:lng,:lngAdd', projectController.getLocationInProject);
-
         this.router.post('/create', projectController.ceateProjects);
-        this.router.post('/assign', projectController.ceateProjectsAssign);
+        this.router.post('/assign', projectController.ceateProjectsAssign);        
+        this.router.post('/tma', projectController.createTimeAttendance);        
         
-        this.router.post('/tma', projectController.createTimeAttendance);
 
 
         this.router.put('/tma/:id', projectController.updateTimeById);

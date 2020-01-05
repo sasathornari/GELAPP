@@ -18,6 +18,19 @@ class PortalController {
     }
   }
 
+  /*-------- Backend Website --------*/
+  public async createUserWeb(req: Request, res: Response): Promise<void> {
+    try {
+      const result = await pool.query("INSERT INTO my3plus.user_login set ?", [
+        req.body
+      ]);
+      console.log(result);
+      res.json({ message: "Create new user login success = " + [req.body] });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   public async fileUploads(req: Request, res: Response): Promise<void> {
     try {
       const result = await pool.query("INSERT INTO my3plus.fileupload set ?", [

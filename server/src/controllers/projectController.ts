@@ -102,7 +102,7 @@ class ProjectController {
   }
 
   public async getProjects(req: Request, res: Response) {
-    await pool3.query("select * from stplusc1_myapp.projects where onProject = 1t", function (
+    await pool3.query("select * from stplusc1_myapp.projects where onProject = 1", function (
       err: any,
       row: any
     ) {

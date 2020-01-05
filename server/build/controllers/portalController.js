@@ -31,6 +31,21 @@ class PortalController {
             }
         });
     }
+    /*-------- Backend Website --------*/
+    createUserWeb(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const result = yield connectGEL_1.default.query("INSERT INTO my3plus.user_login set ?", [
+                    req.body
+                ]);
+                console.log(result);
+                res.json({ message: "Create new user login success = " + [req.body] });
+            }
+            catch (error) {
+                console.log(error);
+            }
+        });
+    }
     fileUploads(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {

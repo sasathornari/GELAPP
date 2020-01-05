@@ -105,7 +105,7 @@ class ProjectController {
     }
     getProjects(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield connectMySQL_1.default.query("select * from stplusc1_myapp.projects where onProject = 1t", function (err, row) {
+            yield connectMySQL_1.default.query("select * from stplusc1_myapp.projects where onProject = 1", function (err, row) {
                 const listproject = JSON.parse(JSON.stringify(row, null, 4));
                 console.log(listproject);
                 res.json(listproject);
