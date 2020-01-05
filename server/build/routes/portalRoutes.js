@@ -18,6 +18,7 @@ class PortalRoutes {
         // READ DATA PORTAL INTRANET OF GEL
         this.router.get('/web/listuser', portalController_1.default.getListUserWeb);
         this.router.get('/web/user/:id,:pass', portalController_1.default.findUserLogin);
+        this.router.get('/web/username/:id', portalController_1.default.findByUsername);
         this.router.get('/cate', portalController_1.default.getPostCategory);
         this.router.get('/post', portalController_1.default.getAllPost);
         this.router.get('/post/:id', portalController_1.default.getPostById);

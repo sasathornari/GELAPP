@@ -57,6 +57,20 @@ class PortalController {
       console.log(error);
     }
   }
+
+  public async findByUsername(req: Request, res: Response): Promise<any> {
+    try {
+      const { id } = req.params;
+        await pool.query("SELECT empId FROM my3plus.user_login where username = '" + [id] + "' ", 
+        function(err: any, row: any) {
+          const listuserweb = JSON.parse(JSON.stringify(row, null, 4));
+          res.json(listuserweb);
+        }
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  }
   
 
   public async fileUploads(req: Request, res: Response): Promise<void> {

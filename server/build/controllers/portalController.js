@@ -74,6 +74,20 @@ class PortalController {
             }
         });
     }
+    findByUsername(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const { id } = req.params;
+                yield connectGEL_1.default.query("SELECT empId FROM my3plus.user_login where username = '" + [id] + "' ", function (err, row) {
+                    const listuserweb = JSON.parse(JSON.stringify(row, null, 4));
+                    res.json(listuserweb);
+                });
+            }
+            catch (error) {
+                console.log(error);
+            }
+        });
+    }
     fileUploads(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
