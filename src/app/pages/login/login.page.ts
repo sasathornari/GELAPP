@@ -50,9 +50,11 @@ export class LoginPage implements OnInit {
   }
 
   loginAction() {
-    console.log(new Date(this.postData.username))
+    const myUsername = (Number(this.postData.username.substring(4,10))-543) + '-'+ this.postData.username.substring(2,4)+ '-'+ this.postData.username.substring(0,2);
+    console.log(myUsername)
+    //console.log(new Date(myUsername))
       if (this.validateInputs()) {     
-       this.userService.getUsersApp(this.postData.username,this.postData.password)
+       this.userService.getUsersApp(myUsername,this.postData.password)
        .subscribe(data => {
          console.log(data.length);
          const result = data.length;

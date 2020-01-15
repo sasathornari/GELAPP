@@ -2,7 +2,7 @@ import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse, Htt
 import { Injectable } from '@angular/core';
 import { Observable, throwError, from } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
-import { environment } from 'environments/environment';
+import { environment } from 'environments/environment.prod';
 import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 

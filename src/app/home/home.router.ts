@@ -22,13 +22,13 @@ const routes: Routes = [
             m => m.ChecktimePageModule
           )
       },
-      {
-        path: 'notifications',
-        loadChildren: () =>
-          import("../pages/notifications/notifications.module").then(
-            m => m.NotificationsPageModule
-          )
-      },
+      // {
+      //   path: 'notifications',
+      //   loadChildren: () =>
+      //     import("../pages/notifications/notifications.module").then(
+      //       m => m.NotificationsPageModule
+      //     )
+      // },
       {
         path: 'settings',
         loadChildren: () =>
