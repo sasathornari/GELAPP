@@ -51,18 +51,19 @@ export class LoginPage implements OnInit {
 
   loginAction() {
     const myUsername = (Number(this.postData.username.substring(4,10))-543) + '-'+ this.postData.username.substring(2,4)+ '-'+ this.postData.username.substring(0,2);
-    console.log(myUsername)
+    //console.log(myUsername)
     //console.log(new Date(myUsername))
       if (this.validateInputs()) {     
        this.userService.getUsersApp(myUsername,this.postData.password)
        .subscribe(data => {
-         console.log(data.length);
+         //console.log(data.length);
          const result = data.length;
          if(result === 1){
               this.toastService.presentToast('ยินดีต้อนรับ คุณ'+ data[0].EMP_NAME+' เข้าสู่ระบบ');
               //this.router.navigate(['home/checktime',{userLogin: this.postData.username}])
               this.router.navigate(['home/checktime']);
-              localStorage.setItem('token', this.postData.username);
+              const userProfile =  data[0].EMP_I_CARD;
+              localStorage.setItem('token', userProfile.toString());
               
 
           }else{

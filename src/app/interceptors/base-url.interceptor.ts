@@ -63,8 +63,9 @@ export class BaseUrlInterceptor implements HttpInterceptor {
         map((event: HttpEvent<any>) => {
 
           if (event instanceof HttpResponse) {
-            console.log('event--->>>', event);
-            console.log('token--->>>', token);
+            //console.log('event--->>>', event);
+            console.log('Login Success');
+            //console.log('token--->>>', token);
           }
           return event;
         }),

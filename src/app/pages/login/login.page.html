@@ -1,17 +1,17 @@
 <ion-content>
 <div class="center">
-  <img src="assets/images/GEL.png" style="padding-top: 50px;">
+  <img src="assets/images/GEL.png" style="padding-top: 70px;">
   <h1>ลงชื่อเข้าใช้งานระบบ</h1>
 </div>
 <form>
   <ion-list>
     <ion-item>
         <ion-label position="stacked" class="form-control">ชื่อผู้ใช้งาน</ion-label>
-        <ion-input autocomplete="on" name="username" type="text" [(ngModel)]="postData.username"></ion-input>
+        <ion-input autocomplete="on" name="username" type="text" [(ngModel)]="postData.username" placeholder="กรอกวันเกิด ddmmyyyy ตัวอย่าง 25012528"></ion-input>
     </ion-item>
     <ion-item>
         <ion-label position="stacked" class="form-control">รหัสผู้ใช้งาน</ion-label>
-        <ion-input autocomplete="off" name="password" type="password" [(ngModel)]="postData.password"></ion-input>
+        <ion-input autocomplete="off" name="password" type="password" [(ngModel)]="postData.password" placeholder="กรอกรหัสพนักงาน"></ion-input>
     </ion-item> 
     <div style="padding-top: 10px;">
       <ion-button expand="block" color="success" (click)="loginAction()" class="button-control">ยืนยันเข้าสู่ระบบ</ion-button>

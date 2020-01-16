@@ -13,7 +13,7 @@
     <form [formGroup]="checkInForm" (ngSubmit)="onClickSubmit()">
     <ion-list>
       <ion-item *ngFor="let value of projInLoation">
-        <ion-icon name="locate" color="gel"></ion-icon> <ion-input color="gel" type="text" formControlName="ProjId_in">{{value.NAME}}</ion-input>
+        <ion-icon name="locate" color="gel"></ion-icon> <ion-input color="gel" type="text" formControlName="ProjId">{{value.NAME}}</ion-input>
         <!-- <ion-select placeholder="เลือกโครงการใกล้" formControlName="ProjId">
           <ion-select-option *ngFor="let item of projInLoation" [value]="item.proId" selected>{{item.NAME}}</ion-select-option>
         </ion-select> -->
@@ -29,10 +29,10 @@
     <ion-card class="full">
       <ion-card-content style="text-align: center">
         <ion-card-title color="primary">
-          <h1 style="font-size: 50px;font-weight: 900;">{{now | date: 'HH:mm:ss' }}</h1>
+          <h1 style="font-size: 60px;font-weight: 900;">{{now | date: 'HH:mm:ss' }}</h1>
         </ion-card-title>
         <ion-card-title>
-          <h2>{{timeToday | date: 'dd/MM/yyyy' }}</h2>
+          <h1>{{timeToday | date: 'dd/MM/yyyy' }}</h1>
         </ion-card-title>
       </ion-card-content>
       <section class="full-width">

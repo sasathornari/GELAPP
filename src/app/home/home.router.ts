@@ -21,7 +21,7 @@ const routes: Routes = [
           import("../pages/checktime/checktime.module").then(
             m => m.ChecktimePageModule
           )
-      },
+      }
       // {
       //   path: 'notifications',
       //   loadChildren: () =>
@@ -29,13 +29,13 @@ const routes: Routes = [
       //       m => m.NotificationsPageModule
       //     )
       // },
-      {
-        path: 'settings',
-        loadChildren: () =>
-          import("../pages/settings/settings.module").then(
-            m => m.SettingsPageModule
-          )
-      }
+      // {
+      //   path: 'settings',
+      //   loadChildren: () =>
+      //     import("../pages/settings/settings.module").then(
+      //       m => m.SettingsPageModule
+      //     )
+      // }
     ]
   }
 ];
